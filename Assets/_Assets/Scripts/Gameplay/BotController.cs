@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Assets.Scripts.Gameplay.Parts;
+using _Assets.Scripts.Gameplay.Parts.Attack;
+using _Assets.Scripts.Gameplay.Parts.Move;
 using UnityEngine;
 
 namespace _Assets.Scripts.Gameplay
@@ -12,7 +15,8 @@ namespace _Assets.Scripts.Gameplay
         //Each part has health to it
         [SerializeField] private int maxHealth;
         private int _currentHealth;
-        [SerializeField] private List<MoveBotPart> _moveParts;
+        [SerializeField] private List<MovePart> _moveParts;
+        [SerializeField] private List<AttackPart> _attackParts;
 
 
         public void TakeDamage(int damage)
@@ -52,6 +56,18 @@ namespace _Assets.Scripts.Gameplay
                     moveBotPart.Move(Vector3.right);
                 }
             }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                foreach (var attackPart in _attackParts)
+                {
+                    attackPart.Attack();
+                }
+            }
         }
+
+        public void AddMovePart(MovePart movePart) => _moveParts.Add(movePart);
+
+        public void RemoveMovePart(MovePart movePart) => _moveParts.Remove(movePart);
     }
 }

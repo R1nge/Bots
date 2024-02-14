@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Assets.Scripts.Gameplay
+namespace _Assets.Scripts.Gameplay.Parts
 {
     public abstract class BotPart : MonoBehaviour, IDamageable
     {

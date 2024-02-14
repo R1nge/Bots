@@ -271,7 +271,6 @@ GameObject:
   - component: {fileID: 542926563}
   - component: {fileID: 542926562}
   - component: {fileID: 542926561}
-  - component: {fileID: 542926559}
   m_Layer: 0
   m_Name: Rotatable2
   m_TagString: Untagged
@@ -279,21 +278,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &542926559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 542926558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fdd0a8021554d79af859f81a30529e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 5
-  speed: 100
-  rotatableTransform: {fileID: 542926560}
 --- !u!4 &542926560
 Transform:
   m_ObjectHideFlags: 0
@@ -392,7 +376,6 @@ GameObject:
   - component: {fileID: 637750326}
   - component: {fileID: 637750325}
   - component: {fileID: 637750324}
-  - component: {fileID: 637750327}
   m_Layer: 0
   m_Name: Rotatable
   m_TagString: Untagged
@@ -486,21 +469,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637750322}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &637750327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637750322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fdd0a8021554d79af859f81a30529e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 5
-  speed: 100
-  rotatableTransform: {fileID: 637750323}
 --- !u!1 &977201592
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,7 +531,6 @@ GameObject:
   - component: {fileID: 1030611350}
   - component: {fileID: 1030611349}
   - component: {fileID: 1030611348}
-  - component: {fileID: 1030611347}
   m_Layer: 0
   m_Name: Rotatable2 (1)
   m_TagString: Untagged
@@ -586,21 +553,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1946463495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1030611347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030611345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fdd0a8021554d79af859f81a30529e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 5
-  speed: 100
-  rotatableTransform: {fileID: 1030611346}
 --- !u!65 &1030611348
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -720,11 +672,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  _moveParts:
-  - {fileID: 637750327}
-  - {fileID: 542926559}
-  - {fileID: 1759290424}
-  - {fileID: 1030611347}
+  _moveParts: []
+  _attackParts: []
 --- !u!65 &1142893884
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -941,7 +890,6 @@ GameObject:
   - component: {fileID: 1759290427}
   - component: {fileID: 1759290426}
   - component: {fileID: 1759290425}
-  - component: {fileID: 1759290424}
   m_Layer: 0
   m_Name: Rotatable (1)
   m_TagString: Untagged
@@ -964,21 +912,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1946463495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1759290424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1759290422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fdd0a8021554d79af859f81a30529e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 5
-  speed: 100
-  rotatableTransform: {fileID: 1759290423}
 --- !u!65 &1759290425
 BoxCollider:
   m_ObjectHideFlags: 0
