@@ -28,6 +28,8 @@ namespace _Assets.Scripts.Configs
         {
             public PartData partData;
             public BotPart prefab;
+            public string name;
+            public int cost;
         }
     }
 }

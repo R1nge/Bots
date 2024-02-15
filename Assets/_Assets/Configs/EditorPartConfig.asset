@@ -20,6 +20,10 @@ MonoBehaviour:
       rotationX: 0
       rotationY: 0
       rotationZ: 0
-      scale: 1
+      scaleX: 1
+      scaleY: 1
+      scaleZ: 1
       partType: 3
     prefab: {fileID: 1364191152137717465, guid: fba2b4d8fb86c03479a009c07c6a824a, type: 3}
+    name: Small wheel
+    cost: 100

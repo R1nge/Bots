@@ -7,7 +7,7 @@ namespace _Assets.Scripts.Gameplay.Parts
     {
         public float positionX, positionY, positionZ;
         public float rotationX, rotationY, rotationZ;
-        public float scale;
+        public float scaleX, scaleY, scaleZ;
         public PartType partType;
         
         public enum PartType

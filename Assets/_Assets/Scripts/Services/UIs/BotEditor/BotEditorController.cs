@@ -19,7 +19,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
 
         private void Create(PartData.PartType type)
         {
-            _botEditorService.Spawn(Vector3.zero, type);
+            _botEditorService.SpawnNew(Vector3.zero, type);
         }
 
         private void Save()
