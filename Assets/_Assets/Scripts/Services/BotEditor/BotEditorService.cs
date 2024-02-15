@@ -28,7 +28,7 @@ namespace _Assets.Scripts.Services.BotEditor
             AddPart(partInstance.GetComponent<BotPart>(), part.partData);
         }
 
-        public void Spawn(PartData partData)
+        private void Spawn(PartData partData)
         {
             var part = _configProvider.PartsConfig.GetPart(partData.partType);
             var position = new Vector3(partData.positionX, partData.positionY, partData.positionZ);
