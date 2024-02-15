@@ -6,6 +6,8 @@ namespace _Assets.Scripts.Configs
     public class UIConfig : ScriptableObject
     {
         public GameObject gameUI;
+        public GameObject editorUI;
         public GameObject GameUI => gameUI;
+        public GameObject EditorUI => editorUI;
     }
 }

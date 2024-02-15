@@ -15,5 +15,10 @@ namespace _Assets.Scripts.Services.UIs.StateMachine
         {
             return new UIGameState(_uiFactory);
         }
+
+        public IUIState CreateEditorState(UIStateMachine uiStateMachine)
+        {
+            return new UIEditorState(_uiFactory);
+        }
     }
 }

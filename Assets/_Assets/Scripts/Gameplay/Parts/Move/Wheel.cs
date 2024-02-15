@@ -6,7 +6,7 @@ namespace _Assets.Scripts.Gameplay.Parts.Move
     {
         public override void Move(Vector3 direction)
         {
-            rotatableTransform.Rotate(direction);
+            rotatableTransform.Rotate(direction * speed);
         }
     }
 }

@@ -13,7 +13,8 @@ namespace _Assets.Scripts.Services.UIs.StateMachine
         {
             _states = new Dictionary<UIStateType, IUIState>
             {
-                { UIStateType.Game, uiStatesFactory.CreateGameState(this) }
+                { UIStateType.Game, uiStatesFactory.CreateGameState(this) },
+                { UIStateType.BotEditor, uiStatesFactory.CreateEditorState(this) }
             };
         }
 
