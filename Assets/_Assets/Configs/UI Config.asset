@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: UI Config
   m_EditorClassIdentifier: 
   gameUI: {fileID: 0}
+  editorUI: {fileID: 5496913177439249036, guid: 6f98cd1d57960a4468aa10c2d4e64958, type: 3}
