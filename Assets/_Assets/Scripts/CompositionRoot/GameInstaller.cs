@@ -1,3 +1,4 @@
+using _Assets.Scripts.Services.BotEditor;
 using _Assets.Scripts.Services.StateMachine;
 using _Assets.Scripts.Services.UIs;
 using _Assets.Scripts.Services.UIs.StateMachine;
@@ -10,6 +11,8 @@ namespace _Assets.Scripts.CompositionRoot
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.Register<BotEditorService>(Lifetime.Singleton);
+            
             builder.Register<UIStatesFactory>(Lifetime.Singleton);
             builder.Register<UIStateMachine>(Lifetime.Singleton);
             builder.Register<UIFactory>(Lifetime.Singleton);
