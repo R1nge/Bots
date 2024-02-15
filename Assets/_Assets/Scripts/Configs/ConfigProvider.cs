@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _Assets.Scripts.Configs
 {
@@ -7,7 +6,7 @@ namespace _Assets.Scripts.Configs
     {
         [SerializeField] private UIConfig uiConfig;
         [SerializeField] private EditorPartsConfig partsConfig;
-         public UIConfig UIConfig => uiConfig;
-         public EditorPartsConfig PartsConfig => partsConfig;
+        public UIConfig UIConfig => uiConfig;
+        public EditorPartsConfig PartsConfig => partsConfig;
     }
 }

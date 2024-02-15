@@ -11,6 +11,7 @@ namespace _Assets.Scripts.Services.BotEditor
         [SerializeField] private new Camera camera;
         [SerializeField] private BotEditorMarkers botEditorMarkers;
         [Inject] private IObjectResolver _objectResolver;
+        [Inject] private BotEditorGridService _botEditorGridService;
         private BotPart _selectedPart;
         private BotEditorMarkers _botEditorMarkers;
         private EditMode _editMode;
@@ -30,6 +31,9 @@ namespace _Assets.Scripts.Services.BotEditor
                 var ray = camera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out var hit))
                 {
+                    Debug.Log("Hit position: " + hit.point);
+                    var gridCell = _botEditorGridService.GetGridCell(hit.point);
+                    Debug.Log("Cell position: " + gridCell.position);
                     ProcessHit(hit);
                 }
                 else
