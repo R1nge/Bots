@@ -1,5 +1,4 @@
-﻿using System;
-using _Assets.Scripts.Gameplay.Parts;
+﻿using _Assets.Scripts.Gameplay.Parts;
 using _Assets.Scripts.Services.BotEditor;
 using UnityEngine;
 using VContainer;
@@ -14,6 +13,8 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
         private void Start()
         {
             botEditorView.OnCreate += Create;
+            botEditorView.OnSave += Save;
+            botEditorView.OnLoad += Load;
         }
 
         private void Create(PartData.PartType type)
@@ -21,9 +22,21 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             _botEditorService.Spawn(Vector3.zero, type);
         }
 
+        private void Save()
+        {
+            _botEditorService.Save();
+        }
+
+        private void Load()
+        {
+            _botEditorService.Load();
+        }
+
         private void OnDestroy()
         {
             botEditorView.OnCreate -= Create;
+            botEditorView.OnSave -= Save;
+            botEditorView.OnLoad -= Load;
         }
     }
 }

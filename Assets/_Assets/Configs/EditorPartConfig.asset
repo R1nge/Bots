@@ -22,4 +22,4 @@ MonoBehaviour:
       rotationZ: 0
       scale: 1
       partType: 3
-    prefab: {fileID: 1654837901529148479, guid: fba2b4d8fb86c03479a009c07c6a824a, type: 3}
+    prefab: {fileID: 1364191152137717465, guid: fba2b4d8fb86c03479a009c07c6a824a, type: 3}

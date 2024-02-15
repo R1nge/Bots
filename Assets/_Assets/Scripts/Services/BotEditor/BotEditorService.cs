@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using _Assets.Scripts.Configs;
 using _Assets.Scripts.Gameplay.Parts;
+using Newtonsoft.Json;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -41,10 +42,8 @@ namespace _Assets.Scripts.Services.BotEditor
 
         public void Save()
         {
-            foreach (var partData in _placedParts.Values)
-            {
-                
-            }
+            var json = JsonConvert.SerializeObject(_placedParts.Values);
+            Debug.Log(json);
         }
 
         public void Load()
