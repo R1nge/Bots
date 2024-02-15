@@ -11,7 +11,6 @@ namespace _Assets.Scripts.Services.BotEditor
         [SerializeField] private new Camera camera;
         [SerializeField] private BotEditorMarkers botEditorMarkers;
         [Inject] private IObjectResolver _objectResolver;
-        [Inject] private BotEditorGridService _botEditorGridService;
         private BotPart _selectedPart;
         private BotEditorMarkers _botEditorMarkers;
         private EditMode _editMode;
@@ -31,9 +30,6 @@ namespace _Assets.Scripts.Services.BotEditor
                 var ray = camera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out var hit))
                 {
-                    Debug.Log("Hit position: " + hit.point);
-                    var gridCell = _botEditorGridService.GetGridCell(hit.point);
-                    Debug.Log("Cell position: " + gridCell.position);
                     ProcessHit(hit);
                 }
                 else
@@ -117,8 +113,15 @@ namespace _Assets.Scripts.Services.BotEditor
             }
         }
         
-        //Actually, I can use 2 planes for a 3 dimensional editing,
-        //One for the Z axis, and one for the X and Y axis.
+        //Or can try different approach
+        //Let the player spawn the body
+        //And use surface normals to spawn objects
+        //But would need to account for the occupied positions somehow
+        //Since most of the parts are box-like, can raycast at the edges?
+        //Or better, raycast from the center,
+        //If hit the placable part, spawn the part
+        //If hit the non-placable part, do nothing
+        //Still need to implement the arrows like in the editor to be able to drag
 
         private void Move()
         {

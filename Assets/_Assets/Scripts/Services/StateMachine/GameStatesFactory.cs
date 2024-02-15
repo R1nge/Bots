@@ -7,17 +7,15 @@ namespace _Assets.Scripts.Services.StateMachine
     public class GameStatesFactory
     {
         private readonly UIStateMachine _uiStateMachine;
-        private readonly BotEditorGridService _botEditorGridService;
 
-        public GameStatesFactory(UIStateMachine uiStateMachine, BotEditorGridService botEditorGridService)
+        public GameStatesFactory(UIStateMachine uiStateMachine)
         {
             _uiStateMachine = uiStateMachine;
-            _botEditorGridService = botEditorGridService;
         }
         
         public IGameState CreateGameState(GameStateMachine stateMachine)
         {
-            return new GameState(stateMachine, _uiStateMachine, _botEditorGridService);
+            return new GameState(stateMachine, _uiStateMachine);
         }
     }
 }

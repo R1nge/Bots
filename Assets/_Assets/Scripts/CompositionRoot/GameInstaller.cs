@@ -15,7 +15,6 @@ namespace _Assets.Scripts.CompositionRoot
         
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.Register<BotEditorGridService>(Lifetime.Singleton);
             builder.Register<BotEditorService>(Lifetime.Singleton);
             builder.RegisterComponent(partSelectionService);
             
