@@ -1,4 +1,5 @@
-﻿using _Assets.Scripts.Gameplay.Parts;
+﻿using System;
+using _Assets.Scripts.Gameplay.Parts;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -11,9 +12,19 @@ namespace _Assets.Scripts.Services.BotEditor
         [SerializeField] private BotEditorMarkers botEditorMarkers;
         [Inject] private IObjectResolver _objectResolver;
         private BotPart _selectedPart;
+        private BotEditorMarkers _botEditorMarkers;
+        private EditMode _editMode;
+        private Vector3 _mouseStartPosition;
 
         private void Update()
         {
+            SelectMode();
+
+            if (_selectedPart != null)
+            {
+                ProcessObject();
+            }
+
             if (Input.GetMouseButtonDown(0))
             {
                 var ray = camera.ScreenPointToRay(Input.mousePosition);
@@ -36,7 +47,7 @@ namespace _Assets.Scripts.Services.BotEditor
                 {
                     if (!_selectedPart.Equals(botPart))
                     {
-                        HideEditorMarkers(_selectedPart.transform);
+                        HideEditorMarkers();
                         SelectPart(botPart);
                     }
                 }
@@ -61,20 +72,85 @@ namespace _Assets.Scripts.Services.BotEditor
         {
             if (_selectedPart != null)
             {
-                HideEditorMarkers(_selectedPart.transform);
+                HideEditorMarkers();
                 _selectedPart = null;
             }
         }
 
-        private void ShowEditorMarkers(Transform parent)
+        private void ShowEditorMarkers(Transform parent) => _botEditorMarkers = _objectResolver.Instantiate(botEditorMarkers, parent);
+
+        private void HideEditorMarkers() => Destroy(_botEditorMarkers.gameObject);
+
+        private void SelectMode()
         {
-            _objectResolver.Instantiate(botEditorMarkers, parent);
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                _editMode = EditMode.Move;
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                _editMode = EditMode.Rotate;
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                _editMode = EditMode.Scale;
+            }
         }
 
-        private void HideEditorMarkers(Transform parent)
+        private void ProcessObject()
         {
-            var editorMarkers = parent.GetComponentInChildren<BotEditorMarkers>();
-            Destroy(editorMarkers.gameObject);
+            switch (_editMode)
+            {
+                case EditMode.Move:
+                    Move();
+                    break;
+                case EditMode.Rotate:
+                    Rotate();
+                    break;
+                case EditMode.Scale:
+                    Scale();
+                    break;
+            }
+        }
+        
+        //Actually, I can use 2 planes for a 3 dimensional editing,
+        //One for the Z axis, and one for the X and Y axis.
+
+        private void Move()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                _mouseStartPosition = camera.ScreenToWorldPoint(Input.mousePosition);
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                _mouseStartPosition = Vector3.zero;
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                var mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
+                var delta = mousePosition - _mouseStartPosition;
+                _botEditorMarkers.Move(delta, BotEditorMarker.MarkerAxisType.X);
+            }
+        }
+
+        private void Rotate()
+        {
+            var mouseWorldPosition = camera.ScreenToWorldPoint(Input.mousePosition);
+            _botEditorMarkers.Rotate(mouseWorldPosition.x, BotEditorMarker.MarkerAxisType.X);
+        }
+
+        private void Scale()
+        {
+        }
+
+        private enum EditMode : byte
+        {
+            Move = 0,
+            Rotate = 1,
+            Scale = 2
         }
     }
 }
