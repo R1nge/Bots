@@ -1,4 +1,5 @@
-﻿using _Assets.Scripts.Configs;
+﻿using System.Collections.Generic;
+using _Assets.Scripts.Configs;
 using _Assets.Scripts.Gameplay.Parts;
 using UnityEngine;
 using VContainer;
@@ -10,6 +11,7 @@ namespace _Assets.Scripts.Services.BotEditor
     {
         private readonly IObjectResolver _objectResolver;
         private readonly ConfigProvider _configProvider;
+        private readonly Dictionary<BotPart, PartData> _placedParts = new();
 
         private BotEditorService(IObjectResolver objectResolver, ConfigProvider configProvider)
         {
@@ -19,7 +21,35 @@ namespace _Assets.Scripts.Services.BotEditor
 
         public void Spawn(Vector3 position, PartData.PartType type)
         {
-            _objectResolver.Instantiate(_configProvider.PartsConfig.GetPart(type).prefab);
+            var part = _configProvider.PartsConfig.GetPart(type);
+            var partInstance = _objectResolver.Instantiate(part.prefab, position, Quaternion.identity);
+            AddPart(partInstance.GetComponent<BotPart>(), part.partData);
+        }
+
+        public void Destroy(BotPart botPart)
+        {
+            RemovePart(botPart);
+            Object.Destroy(botPart.gameObject);
+        }
+
+        private void AddPart(BotPart botPart, PartData partData)
+        {
+            _placedParts.Add(botPart, partData);
+        }
+
+        private void RemovePart(BotPart botPart) => _placedParts.Remove(botPart);
+
+        public void Save()
+        {
+            foreach (var partData in _placedParts.Values)
+            {
+                
+            }
+        }
+
+        public void Load()
+        {
+            
         }
     }
 }

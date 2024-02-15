@@ -27,7 +27,7 @@ namespace _Assets.Scripts.Configs
         public struct EditorPartsData
         {
             public PartData partData;
-            public GameObject prefab;
+            public BotPart prefab;
         }
     }
 }
