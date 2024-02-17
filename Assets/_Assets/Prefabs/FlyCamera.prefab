@@ -107,10 +107,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 50
-  accSprintMultiplier: 4
+  sprintAccelerationMultiplier: 4
   lookSensitivity: 1
   dampingCoefficient: 5
-  focusOnEnable: 1
 --- !u!1 &1947342724685206280
 GameObject:
   m_ObjectHideFlags: 0

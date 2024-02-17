@@ -29,13 +29,7 @@ namespace _Assets.Scripts.Services.BotEditor
             if (!_initialized)
                 return;
 
-
             SelectMode();
-
-            if (_selectedPart != null)
-            {
-                ProcessObject();
-            }
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -57,7 +51,7 @@ namespace _Assets.Scripts.Services.BotEditor
                 {
                     if (hit.transform.TryGetComponent(out BotEditorMarker marker))
                     {
-                        marker.StartDragging(_camera, _editMode);
+                        marker.StartDragging(_camera);
                         _camera.GetComponent<FlyCamera>().enabled = false;
                     }
                 }
@@ -69,7 +63,7 @@ namespace _Assets.Scripts.Services.BotEditor
                 {
                     marker.StopDragging();
                 }
-                
+
                 _camera.GetComponent<FlyCamera>().enabled = true;
             }
         }
@@ -121,30 +115,29 @@ namespace _Assets.Scripts.Services.BotEditor
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 _editMode = EditMode.Move;
+                UpdateEditMode();
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 _editMode = EditMode.Rotate;
+                UpdateEditMode();
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 _editMode = EditMode.Scale;
+                UpdateEditMode();
             }
         }
 
-        private void ProcessObject()
+        private void UpdateEditMode()
         {
-            switch (_editMode)
+            if (_botEditorMarkers != null)
             {
-                case EditMode.Move:
-
-                    break;
-                case EditMode.Rotate:
-                    Rotate();
-                    break;
-                case EditMode.Scale:
-                    Scale();
-                    break;
+                var markers = _botEditorMarkers.GetComponentsInChildren<BotEditorMarker>();
+                foreach (var marker in markers)
+                {
+                    marker.UpdateEditMode(_editMode);
+                }
             }
         }
 
@@ -160,15 +153,5 @@ namespace _Assets.Scripts.Services.BotEditor
 
 
         //I think it should just spawn the markers, and they will do the rest
-
-        private void Rotate()
-        {
-            var mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-            _botEditorMarkers.Rotate(mouseWorldPosition.x, BotEditorMarker.MarkerAxisType.X);
-        }
-
-        private void Scale()
-        {
-        }
     }
 }

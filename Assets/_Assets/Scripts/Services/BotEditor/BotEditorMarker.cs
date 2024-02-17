@@ -1,40 +1,42 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _Assets.Scripts.Services.BotEditor
 {
     public class BotEditorMarker : MonoBehaviour
     {
+        [SerializeField] private float rotationSpeed;
         [SerializeField] private MarkerAxisType markerAxis;
-        public MarkerAxisType MarkerAxis => markerAxis;
+        private EditMode _editMode;
         private bool _isDragging;
-        private Vector3 _screenPoint;
+        private Vector3 _previousPosition;
         private Camera _camera;
 
-        public void StartDragging(Camera camera, EditMode editMode)
+        public void StartDragging(Camera camera)
         {
             _camera = camera;
             _isDragging = true;
-
-            _screenPoint = _camera.WorldToScreenPoint(gameObject.transform.position);
-
-            UpdateMode(editMode);
         }
 
-        private void UpdateMode(EditMode editMode)
+        public void UpdateEditMode(EditMode editMode) => _editMode = editMode;
+
+        private void Update()
         {
-            switch (editMode)
+            switch (_editMode)
             {
                 case EditMode.Move:
+                    Move();
                     break;
                 case EditMode.Rotate:
+                    Rotate();
                     break;
                 case EditMode.Scale:
                     break;
             }
         }
 
-        private void Update()
+        public void StopDragging() => _isDragging = false;
+
+        private void Move()
         {
             if (_isDragging)
             {
@@ -45,45 +47,82 @@ namespace _Assets.Scripts.Services.BotEditor
                 if (plane.Raycast(ray, out var distance))
                 {
                     var targetPoint = ray.GetPoint(distance);
+                    var currentPosition = transform.root.position;
+                    var directionToTarget = targetPoint - currentPosition;
+
+                    var localRight = transform.root.right;
+                    var localUp = transform.root.up;
+                    var localForward = transform.root.forward;
 
                     switch (markerAxis)
                     {
                         case MarkerAxisType.X:
-                            transform.root.position = new Vector3(targetPoint.x, transform.position.y, transform.position.z);
+                            var projectedX = Vector3.Project(directionToTarget, localRight);
+                            currentPosition += projectedX;
                             break;
                         case MarkerAxisType.Y:
-                            transform.root.position = new Vector3(transform.position.x, targetPoint.y, transform.position.z);
+                            var projectedY = Vector3.Project(directionToTarget, localUp);
+                            currentPosition += projectedY;
                             break;
                         case MarkerAxisType.Z:
-                            transform.root.position = new Vector3(transform.position.x, transform.position.y, targetPoint.z);
+                            var projectedZ = Vector3.Project(directionToTarget, localForward);
+                            currentPosition += projectedZ;
                             break;
+                    }
+
+                    transform.root.position = currentPosition;
+                }
+            }
+        }
+
+        private void Rotate()
+        {
+            if (_isDragging)
+            {
+                var plane = new Plane(-_camera.transform.forward, transform.root.position);
+                var ray = _camera.ScreenPointToRay(Input.mousePosition);
+
+                if (plane.Raycast(ray, out var distance))
+                {
+                    var targetPoint = ray.GetPoint(distance);
+
+                    switch (markerAxis)
+                    {
+                        case MarkerAxisType.X:
+                            RotateAroundAxis(targetPoint.x - _previousPosition.x, Vector3.right);
+                            break;
+                        case MarkerAxisType.Y:
+                            RotateAroundAxis(targetPoint.y - _previousPosition.y, Vector3.up);
+                            break;
+                        case MarkerAxisType.Z:
+                            RotateAroundAxis(targetPoint.z - _previousPosition.z, Vector3.forward);
+                            break;
+                    }
+
+                    _previousPosition = targetPoint;
+                }
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    var plane = new Plane(-_camera.transform.forward, transform.root.position);
+                    var ray = _camera.ScreenPointToRay(Input.mousePosition);
+                    if (plane.Raycast(ray, out var distance))
+                    {
+                        _previousPosition = ray.GetPoint(distance);
                     }
                 }
             }
         }
 
-        public void StopDragging()
+        private void RotateAroundAxis(float delta, Vector3 axis)
         {
-            _isDragging = false;
+            var angle = delta * rotationSpeed;
+            transform.root.Rotate(axis, angle);
         }
 
-        public void Rotate(float distance)
-        {
-            switch (markerAxis)
-            {
-                case MarkerAxisType.X:
-                    transform.root.Rotate(Vector3.one * distance);
-                    break;
-                case MarkerAxisType.Y:
-                    transform.root.Rotate(Vector3.up * distance);
-                    break;
-                case MarkerAxisType.Z:
-                    transform.root.Rotate(Vector3.forward * distance);
-                    break;
-            }
-        }
-
-        public enum MarkerAxisType
+        private enum MarkerAxisType
         {
             X,
             Y,
