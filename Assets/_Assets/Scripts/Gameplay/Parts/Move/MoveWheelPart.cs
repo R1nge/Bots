@@ -2,11 +2,14 @@
 
 namespace _Assets.Scripts.Gameplay.Parts.Move
 {
-    public abstract class MovePart : BotPart
+    public class MoveWheelPart : BotPart, IMovingPart
     {
         [SerializeField] protected float speed;
         [SerializeField] protected Transform rotatableTransform;
 
-        public abstract void Move(Vector3 direction);
+        public void Move(Vector3 direction)
+        {
+            rotatableTransform.Rotate(direction * speed);
+        }
     }
 }

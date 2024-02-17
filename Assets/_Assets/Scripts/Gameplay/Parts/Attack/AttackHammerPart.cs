@@ -2,12 +2,15 @@
 
 namespace _Assets.Scripts.Gameplay.Parts.Attack
 {
-    public abstract class AttackPart : BotPart
+    public abstract class AttackHammerPart : BotPart, IAttackingPart
     {
         [SerializeField] protected int damage;
         [SerializeField] protected float cooldown;
         protected float currentCooldown;
 
-        public abstract void Attack();
+        public void Attack()
+        {
+            
+        }
     }
 }

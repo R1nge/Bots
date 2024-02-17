@@ -8,15 +8,21 @@ namespace _Assets.Scripts.Gameplay
 {
     public class BotController : BotPart
     {
-        [SerializeField] private List<MovePart> _moveParts;
-        [SerializeField] private List<AttackPart> _attackParts;
+        private List<IMovingPart> _moveParts;
+        private List<IAttackingPart> _attackParts;
 
         private void Start()
         {
-            var moveParts = GetComponentsInChildren<MovePart>();
+            var moveParts = GetComponentsInChildren<IMovingPart>();
             for (int i = 0; i < moveParts.Length; i++)
             {
                 AddMovePart(_moveParts[i]);
+            }
+
+            var attackParts = GetComponentsInChildren<IAttackingPart>();
+            for (int i = 0; i < attackParts.Length; i++)
+            {
+                AddAttackPart(_attackParts[i]);
             }
         }
 
@@ -51,8 +57,12 @@ namespace _Assets.Scripts.Gameplay
             }
         }
 
-        public void AddMovePart(MovePart movePart) => _moveParts.Add(movePart);
+        private void AddMovePart(IMovingPart movingPart) => _moveParts.Add(movingPart);
 
-        public void RemoveMovePart(MovePart movePart) => _moveParts.Remove(movePart);
+        public void RemoveMovePart(IMovingPart movingPart) => _moveParts.Remove(movingPart);
+
+        private void AddAttackPart(IAttackingPart attackHammerPart) => _attackParts.Add(attackHammerPart);
+
+        private void RemoveAttackPart(IAttackingPart attackHammerPart) => _attackParts.Remove(attackHammerPart);
     }
 }

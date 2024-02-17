@@ -153,8 +153,36 @@ namespace _Assets.Scripts.Services.BotEditor
         //And use surface normals to spawn objects
         //But would need to account for the occupied positions somehow
         //Since most of the parts are box-like, can raycast at the edges?
-        //Or better, raycast from the center,
-        //If hit the placable part, spawn the part
-        //If hit the non-placable part, do nothing
+        //Yep, raycast from the points, defined in the prefab
+        //If hit the placeable part, allow to spawn the part
+        //If hit the non-placeable part, forbid to spawn the part
+        
+        // BotPart -> PlaceablePart 	->  BotController
+        // ->  PlaceableMoveablePart
+        // ->  PlaceableAttackingPart
+        //
+        // -> NotPlaceablePart	-> NotPlaceableMoveablePart	-> Wheel
+        // -> NotPlaceableAttackingPart	-> Hammer
+        //
+        //
+        //
+        //     BotPart -> BotController
+        //             -> AttackingPart 	-> PlaceableAttackingPart (IPlaceable)
+        //                                  -> NonPlaceableAttackingPart
+        //
+        //             -> MoveablePart		-> PlaceableMoveablePart (IPlaceable)
+        //                                  -> NonPlacealbeMoveablePart
+        //
+        //     What if I want to be able to create a moveable attacking part?
+        
+        // BotPart -> BotController
+        //          -> IAttackable		-> PlaceableAttackingPart (IPlaceable)
+        //                              -> NonPlaceableAttackingPart
+        //
+        //          -> IMoveable		-> PlaceableMovingPart (IPlaceable)
+        //                              -> NonPlaceableMovingPart
+        //
+        //          -> IAttackable, IMoveable -> PlaceableAttackinAndMovingPart (IPlaceable)
+        //                                    -> NonPlaceableAttackinAndMovingPart
     }
 }
