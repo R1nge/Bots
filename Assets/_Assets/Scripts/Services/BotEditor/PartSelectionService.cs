@@ -133,11 +133,7 @@ namespace _Assets.Scripts.Services.BotEditor
         {
             if (_botEditorMarkers != null)
             {
-                var markers = _botEditorMarkers.GetComponentsInChildren<BotEditorMarker>();
-                foreach (var marker in markers)
-                {
-                    marker.UpdateEditMode(_editMode);
-                }
+                _botEditorMarkers.ChangeVisuals(_editMode);
             }
         }
 
@@ -149,9 +145,5 @@ namespace _Assets.Scripts.Services.BotEditor
         //Or better, raycast from the center,
         //If hit the placable part, spawn the part
         //If hit the non-placable part, do nothing
-        //Still need to implement the arrows like in the editor to be able to drag
-
-
-        //I think it should just spawn the markers, and they will do the rest
     }
 }

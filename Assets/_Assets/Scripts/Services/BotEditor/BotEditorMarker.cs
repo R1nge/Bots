@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace _Assets.Scripts.Services.BotEditor
 {
@@ -17,7 +18,11 @@ namespace _Assets.Scripts.Services.BotEditor
             _isDragging = true;
         }
 
-        public void UpdateEditMode(EditMode editMode) => _editMode = editMode;
+        public void UpdateEditMode(EditMode editMode)
+        {
+            _editMode = editMode;
+            UpdateVisuals(_editMode);
+        }
 
         private void Update()
         {
@@ -30,6 +35,7 @@ namespace _Assets.Scripts.Services.BotEditor
                     Rotate();
                     break;
                 case EditMode.Scale:
+                    Scale();
                     break;
             }
         }
@@ -120,6 +126,59 @@ namespace _Assets.Scripts.Services.BotEditor
         {
             var angle = delta * rotationSpeed;
             transform.root.Rotate(axis, angle);
+        }
+
+        private void Scale()
+        {
+            if (_isDragging)
+            {
+                var plane = new Plane(_camera.transform.forward, transform.root.position);
+
+                var ray = _camera.ScreenPointToRay(Input.mousePosition);
+
+                if (plane.Raycast(ray, out var distance))
+                {
+                    var targetPoint = ray.GetPoint(distance);
+                    var currentScale = transform.root.localScale;
+                    var directionToTarget = targetPoint - transform.root.position;
+
+                    // Convert direction from world space to local space
+                    var localDirectionToTarget = transform.root.InverseTransformDirection(directionToTarget) * 0.01f;
+
+                    // Apply scaling only along the selected local axis
+                    switch (markerAxis)
+                    {
+                        case MarkerAxisType.X:
+                            currentScale.x += localDirectionToTarget.x;
+                            break;
+                        case MarkerAxisType.Y:
+                            currentScale.y += localDirectionToTarget.y;
+                            break;
+                        case MarkerAxisType.Z:
+                            currentScale.z += localDirectionToTarget.z;
+                            break;
+                    }
+
+                    currentScale.x = Mathf.Max(currentScale.x, 0.1f);
+                    currentScale.y = Mathf.Max(currentScale.y, 0.1f);
+                    currentScale.z = Mathf.Max(currentScale.z, 0.1f);
+
+                    transform.root.localScale = currentScale;
+                }
+            }
+        }
+
+        private void UpdateVisuals(EditMode editMode)
+        {
+            switch (_editMode)
+            {
+                case EditMode.Move:
+                    break;
+                case EditMode.Rotate:
+                    break;
+                case EditMode.Scale:
+                    break;
+            }
         }
 
         private enum MarkerAxisType
