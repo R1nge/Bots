@@ -81,6 +81,14 @@ namespace _Assets.Scripts.Services.BotEditor
 
         public void Load()
         {
+            var list = _placedParts.ToList();
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                Object.Destroy(list[i].Key.gameObject);
+            }
+
+            _placedParts.Clear();
+
             var json = PlayerPrefs.GetString("RobotData");
             if (string.IsNullOrEmpty(json))
             {
