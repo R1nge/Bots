@@ -9,15 +9,25 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
     {
         [SerializeField] private BotEditorView botEditorView;
         [Inject] private BotEditorService _botEditorService;
+        [Inject] private PartSelectionService _partSelectionService;
 
         private void Start()
         {
-            botEditorView.OnCreate += Create;
+            botEditorView.OnBuy += Buy;
+            botEditorView.OnSell += Sell;
             botEditorView.OnSave += Save;
             botEditorView.OnLoad += Load;
         }
 
-        private void Create(PartData.PartType type)
+        private void Sell()
+        {
+            if (_partSelectionService.SelectedPart != null)
+            {
+                _botEditorService.Destroy(_partSelectionService.SelectedPart);
+            }
+        }
+
+        private void Buy(PartData.PartType type)
         {
             _botEditorService.SpawnNew(Vector3.zero, type);
         }
@@ -34,7 +44,8 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
 
         private void OnDestroy()
         {
-            botEditorView.OnCreate -= Create;
+            botEditorView.OnBuy -= Buy;
+            botEditorView.OnSell -= Sell;
             botEditorView.OnSave -= Save;
             botEditorView.OnLoad -= Load;
         }

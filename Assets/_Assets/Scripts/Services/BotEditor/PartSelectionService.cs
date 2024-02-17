@@ -1,6 +1,7 @@
 ﻿using _Assets.Scripts.Gameplay.Parts;
 using _Assets.Scripts.Misc;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using VContainer;
 using VContainer.Unity;
 
@@ -16,6 +17,8 @@ namespace _Assets.Scripts.Services.BotEditor
         private BotEditorMarkers _botEditorMarkers;
         private EditMode _editMode;
         private bool _initialized;
+        
+        public BotPart SelectedPart => _selectedPart;
 
         public void Init(Camera camera)
         {
@@ -26,6 +29,9 @@ namespace _Assets.Scripts.Services.BotEditor
         private void Update()
         {
             if (!_initialized)
+                return;
+            
+            if(EventSystem.current.IsPointerOverGameObject())
                 return;
 
             SelectMode();

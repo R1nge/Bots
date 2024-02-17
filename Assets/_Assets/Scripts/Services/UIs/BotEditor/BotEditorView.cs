@@ -7,30 +7,35 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
 {
     public class BotEditorView : MonoBehaviour
     {
-        [SerializeField] private Button createWheelButton;
-        [SerializeField] private Button creteMediumBodyButton;
+        [SerializeField] private Button buyWheelButton;
+        [SerializeField] private Button buyMediumBodyButton;
+        [SerializeField] private Button sellButton;
         [SerializeField] private Button saveButton, loadButton;
-        public event Action<PartData.PartType> OnCreate;
+        public event Action<PartData.PartType> OnBuy;
+        public event Action OnSell;
         public event Action OnSave;
         public event Action OnLoad;
 
         private void Start()
         {
-            createWheelButton.onClick.AddListener(CreateSmallWheel);
-            creteMediumBodyButton.onClick.AddListener(CreateMediumBody);
+            buyWheelButton.onClick.AddListener(BuySmallWheel);
+            buyMediumBodyButton.onClick.AddListener(BuyMediumBody);
+            sellButton.onClick.AddListener(Sell);
             saveButton.onClick.AddListener(Save);
             loadButton.onClick.AddListener(Load);
         }
-
-        private void CreateSmallWheel() => OnCreate?.Invoke(PartData.PartType.SmallWheel);
-        private void CreateMediumBody() => OnCreate?.Invoke(PartData.PartType.MediumBody);
+        
+        private void BuySmallWheel() => OnBuy?.Invoke(PartData.PartType.SmallWheel);
+        private void BuyMediumBody() => OnBuy?.Invoke(PartData.PartType.MediumBody);
+        private void Sell() => OnSell?.Invoke();
         private void Save() => OnSave?.Invoke();
         private void Load() => OnLoad?.Invoke();
 
         private void OnDestroy()
         {
-            createWheelButton.onClick.RemoveAllListeners();
-            creteMediumBodyButton.onClick.RemoveAllListeners();
+            buyWheelButton.onClick.RemoveAllListeners();
+            buyMediumBodyButton.onClick.RemoveAllListeners();
+            sellButton.onClick.RemoveAllListeners();
             saveButton.onClick.RemoveAllListeners();
             loadButton.onClick.RemoveAllListeners();
         }
