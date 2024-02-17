@@ -150,4 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c2a463989e442fba5843fe4ec294f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rayDistance: 0
+  rayTransforms: []
+  forbid: {fileID: 2100000, guid: f0c520a5137db174c8708ab6f2bc4708, type: 2}
+  meshRenderer: {fileID: 3901326182718399990}
   maxHealth: 150
