@@ -57,7 +57,7 @@ namespace _Assets.Scripts.Services.BotEditor
                 {
                     if (hit.transform.TryGetComponent(out BotEditorMarker marker))
                     {
-                        marker.StartDragging(_camera);
+                        marker.StartDragging(_camera, _editMode);
                         _camera.GetComponent<FlyCamera>().enabled = false;
                     }
                 }
@@ -118,15 +118,15 @@ namespace _Assets.Scripts.Services.BotEditor
 
         private void SelectMode()
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 _editMode = EditMode.Move;
             }
-            else if (Input.GetKeyDown(KeyCode.R))
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 _editMode = EditMode.Rotate;
             }
-            else if (Input.GetKeyDown(KeyCode.S))
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 _editMode = EditMode.Scale;
             }
@@ -169,13 +169,6 @@ namespace _Assets.Scripts.Services.BotEditor
 
         private void Scale()
         {
-        }
-
-        private enum EditMode : byte
-        {
-            Move = 0,
-            Rotate = 1,
-            Scale = 2
         }
     }
 }

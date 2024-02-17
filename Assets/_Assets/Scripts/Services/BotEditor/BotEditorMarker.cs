@@ -9,46 +9,56 @@ namespace _Assets.Scripts.Services.BotEditor
         public MarkerAxisType MarkerAxis => markerAxis;
         private bool _isDragging;
         private Vector3 _screenPoint;
-        private Vector3 _offset;
         private Camera _camera;
 
-        public void StartDragging(Camera camera)
+        public void StartDragging(Camera camera, EditMode editMode)
         {
             _camera = camera;
             _isDragging = true;
-            
+
             _screenPoint = _camera.WorldToScreenPoint(gameObject.transform.position);
 
-            //It assumes that the camera is not moving during the drag.
-            _offset = gameObject.transform.position - _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z));
+            UpdateMode(editMode);
+        }
+
+        private void UpdateMode(EditMode editMode)
+        {
+            switch (editMode)
+            {
+                case EditMode.Move:
+                    break;
+                case EditMode.Rotate:
+                    break;
+                case EditMode.Scale:
+                    break;
+            }
         }
 
         private void Update()
         {
             if (_isDragging)
             {
-                var currentScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z);
+                var plane = new Plane(-_camera.transform.forward, transform.root.position);
 
-                // Convert the screen point to world point plus the calculated offset.
-                var currentPosition = _camera.ScreenToWorldPoint(currentScreenPoint) + _offset;
-                
-                switch (markerAxis)
+                var ray = _camera.ScreenPointToRay(Input.mousePosition);
+
+                if (plane.Raycast(ray, out var distance))
                 {
-                    case MarkerAxisType.X:
-                        var position = new Vector3(currentPosition.x, transform.root.position.y, transform.root.position.z);
-                        transform.root.position = position;
-                        break;
-                    case MarkerAxisType.Y:
-                        var position2 = new Vector3(transform.root.position.x, currentPosition.y, transform.root.position.z);
-                        transform.root.position = position2;
-                        break;
-                    case MarkerAxisType.Z:
-                        var position3 = new Vector3(transform.root.position.x, transform.root.position.y, currentPosition.x);
-                        transform.root.position = position3;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }                
+                    var targetPoint = ray.GetPoint(distance);
+
+                    switch (markerAxis)
+                    {
+                        case MarkerAxisType.X:
+                            transform.root.position = new Vector3(targetPoint.x, transform.position.y, transform.position.z);
+                            break;
+                        case MarkerAxisType.Y:
+                            transform.root.position = new Vector3(transform.position.x, targetPoint.y, transform.position.z);
+                            break;
+                        case MarkerAxisType.Z:
+                            transform.root.position = new Vector3(transform.position.x, transform.position.y, targetPoint.z);
+                            break;
+                    }
+                }
             }
         }
 
