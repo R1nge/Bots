@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad18f8fa26ee47c99a0d14938cb1436b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 10
+  rotationSpeed: 100
   markerAxis: 2
 --- !u!65 &8167107204831481647
 BoxCollider:
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad18f8fa26ee47c99a0d14938cb1436b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 10
+  rotationSpeed: 100
   markerAxis: 1
 --- !u!65 &3596717309911022116
 BoxCollider:
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad18f8fa26ee47c99a0d14938cb1436b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 10
+  rotationSpeed: 100
   markerAxis: 0
 --- !u!65 &4529057051682613091
 BoxCollider:
@@ -550,7 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad18f8fa26ee47c99a0d14938cb1436b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 10
+  rotationSpeed: 100
   markerAxis: 1
 --- !u!65 &5063099051146948636
 BoxCollider:
@@ -704,7 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad18f8fa26ee47c99a0d14938cb1436b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 10
+  rotationSpeed: 100
   markerAxis: 2
 --- !u!65 &1673233325575083275
 BoxCollider:
@@ -824,7 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad18f8fa26ee47c99a0d14938cb1436b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 10
+  rotationSpeed: 100
   markerAxis: 0
 --- !u!65 &8544641896537320774
 BoxCollider:
@@ -978,7 +978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad18f8fa26ee47c99a0d14938cb1436b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 10
+  rotationSpeed: 100
   markerAxis: 1
 --- !u!65 &2545366674077312125
 BoxCollider:
@@ -1098,7 +1098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad18f8fa26ee47c99a0d14938cb1436b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 10
+  rotationSpeed: 100
   markerAxis: 0
 --- !u!65 &462539646931655066
 BoxCollider:
@@ -1218,7 +1218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad18f8fa26ee47c99a0d14938cb1436b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 10
+  rotationSpeed: 100
   markerAxis: 2
 --- !u!65 &1852366985530526244
 BoxCollider:

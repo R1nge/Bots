@@ -17,7 +17,7 @@ namespace _Assets.Scripts.Services.BotEditor
         private BotEditorMarkers _botEditorMarkers;
         private EditMode _editMode;
         private bool _initialized;
-        
+
         public BotPart SelectedPart => _selectedPart;
 
         public void Init(Camera camera)
@@ -29,10 +29,16 @@ namespace _Assets.Scripts.Services.BotEditor
         private void Update()
         {
             if (!_initialized)
+            {
+                Debug.LogWarning("PartSelectionService not initialized");
                 return;
-            
-            if(EventSystem.current.IsPointerOverGameObject())
+            }
+
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                Debug.LogWarning("Pointer is over UI");
                 return;
+            }
 
             SelectMode();
 
