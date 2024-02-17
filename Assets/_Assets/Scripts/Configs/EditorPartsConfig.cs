@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Assets.Scripts.Gameplay.Parts;
+using _Assets.Scripts.Services.BotEditor;
 using UnityEngine;
 
 namespace _Assets.Scripts.Configs
@@ -28,6 +29,7 @@ namespace _Assets.Scripts.Configs
         {
             public PartData partData;
             public BotPart prefab;
+            public PartPreview preview;
             public string name;
             public int cost;
         }

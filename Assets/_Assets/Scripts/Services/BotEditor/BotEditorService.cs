@@ -27,6 +27,14 @@ namespace _Assets.Scripts.Services.BotEditor
             var partInstance = _objectResolver.Instantiate(part.prefab, position, Quaternion.identity);
             AddPart(partInstance.GetComponent<BotPart>(), part.partData);
         }
+        
+        public PartPreview SpawnPreview(Vector3 position, PartData.PartType type)
+        {
+            var part = _configProvider.PartsConfig.GetPart(type);
+            var partInstance = _objectResolver.Instantiate(part.preview, position, Quaternion.identity);
+            partInstance.SetPartType(type);
+            return partInstance;
+        }
 
         private void Spawn(PartData partData)
         {

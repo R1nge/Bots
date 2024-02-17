@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _Assets.Scripts.Gameplay
 {
-    public class BotController : BotPart
+    public class BotController : BotPart, IPlaceablePart
     {
         private readonly List<IMovingPart> _moveParts = new();
         private readonly List<IAttackingPart> _attackParts = new();

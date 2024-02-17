@@ -26,6 +26,12 @@ namespace _Assets.Scripts.Services.BotEditor
             _initialized = true;
         }
 
+        public void Select(BotPart part)
+        {
+            DeselectPart();
+            SelectPart(part);
+        }
+
         private void Update()
         {
             if (!_initialized)
@@ -114,6 +120,7 @@ namespace _Assets.Scripts.Services.BotEditor
             {
                 HideEditorMarkers();
                 _selectedPart = null;
+                _flyCamera.enabled = true;
             }
         }
 
@@ -156,7 +163,7 @@ namespace _Assets.Scripts.Services.BotEditor
         //Yep, raycast from the points, defined in the prefab
         //If hit the placeable part, allow to spawn the part
         //If hit the non-placeable part, forbid to spawn the part
-        
+
         // BotPart -> PlaceablePart 	->  BotController
         // ->  PlaceableMoveablePart
         // ->  PlaceableAttackingPart
@@ -174,7 +181,7 @@ namespace _Assets.Scripts.Services.BotEditor
         //                                  -> NonPlacealbeMoveablePart
         //
         //     What if I want to be able to create a moveable attacking part?
-        
+
         // BotPart -> BotController
         //          -> IAttackable		-> PlaceableAttackingPart (IPlaceable)
         //                              -> NonPlaceableAttackingPart

@@ -10,6 +10,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
         [SerializeField] private BotEditorView botEditorView;
         [Inject] private BotEditorService _botEditorService;
         [Inject] private PartSelectionService _partSelectionService;
+        private PartPreview _partPreview;
 
         private void Start()
         {
@@ -29,7 +30,11 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
 
         private void Buy(PartData.PartType type)
         {
-            _botEditorService.SpawnNew(Vector3.zero, type);
+            //Spawn preview
+            //Which checks if can be placed
+            //LMB to place it
+            _partPreview = _botEditorService.SpawnPreview(Vector3.zero, type);
+            _partSelectionService.Select(_partPreview);
         }
 
         private void Save()
