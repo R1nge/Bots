@@ -1,4 +1,5 @@
-﻿using _Assets.Scripts.Gameplay.Parts;
+﻿using System;
+using _Assets.Scripts.Gameplay.Parts;
 using _Assets.Scripts.Services.BotEditor;
 using UnityEngine;
 using VContainer;
@@ -18,6 +19,11 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             botEditorView.OnSell += Sell;
             botEditorView.OnSave += Save;
             botEditorView.OnLoad += Load;
+        }
+
+        private void Update()
+        {
+            botEditorView.SaveButton.interactable = _botEditorService.CanSave();
         }
 
         private void Sell()

@@ -15,6 +15,21 @@ namespace _Assets.Scripts.Services.BotEditor
         private readonly ConfigProvider _configProvider;
         private readonly Dictionary<BotPart, PartData> _placedParts = new();
 
+        public bool CanSave()
+        {
+            bool canSave = true;
+            foreach (var pair in _placedParts)
+            {
+                if (!pair.Key.CanBePlaced)
+                {
+                    Debug.LogError($"Bot won't be saved; Part {pair.Value.partType} is not placed correcly");
+                    canSave = false;
+                }
+            }
+
+            return canSave;
+        }
+
         private BotEditorService(IObjectResolver objectResolver, ConfigProvider configProvider)
         {
             _objectResolver = objectResolver;
@@ -53,6 +68,11 @@ namespace _Assets.Scripts.Services.BotEditor
         //TODO: save in json instead
         public void Save()
         {
+            if (!CanSave())
+            {
+                return;
+            }
+
             foreach (var pair in _placedParts.Keys.ToList())
             {
                 var part = _placedParts[pair];

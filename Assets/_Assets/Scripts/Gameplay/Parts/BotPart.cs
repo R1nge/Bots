@@ -10,8 +10,9 @@ namespace _Assets.Scripts.Gameplay.Parts
         [SerializeField] private Material forbid;
         [SerializeField] private MeshRenderer meshRenderer;
         private Material _currentMaterial;
-        private bool _canBePlaced;
+        private bool _canBePlaced = true;
         private PartData.PartType _partType;
+        public bool CanBePlaced => _canBePlaced;
         [SerializeField] private int maxHealth;
         private int _currentHealth;
 

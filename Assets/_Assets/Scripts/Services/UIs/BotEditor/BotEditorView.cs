@@ -11,6 +11,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
         [SerializeField] private Button buyMediumBodyButton;
         [SerializeField] private Button sellButton;
         [SerializeField] private Button saveButton, loadButton;
+        public Button SaveButton => saveButton;
         public event Action<PartData.PartType> OnBuy;
         public event Action OnSell;
         public event Action OnSave;
@@ -24,7 +25,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             saveButton.onClick.AddListener(Save);
             loadButton.onClick.AddListener(Load);
         }
-        
+
         private void BuySmallWheel() => OnBuy?.Invoke(PartData.PartType.SmallWheel);
         private void BuyMediumBody() => OnBuy?.Invoke(PartData.PartType.MediumBody);
         private void Sell() => OnSell?.Invoke();
