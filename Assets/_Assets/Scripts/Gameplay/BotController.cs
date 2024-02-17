@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using _Assets.Scripts.Gameplay.Parts;
 using _Assets.Scripts.Gameplay.Parts.Attack;
 using _Assets.Scripts.Gameplay.Parts.Move;
@@ -11,18 +12,19 @@ namespace _Assets.Scripts.Gameplay
         private readonly List<IMovingPart> _moveParts = new();
         private readonly List<IAttackingPart> _attackParts = new();
 
-        private void Start()
+        public void Init()
         {
-            var moveParts = GetComponentsInChildren<IMovingPart>();
+            var moveParts = GetComponentsInChildren<MonoBehaviour>().OfType<IMovingPart>().ToArray();
+            Debug.Log($"Length: {moveParts.Length}");  
             for (int i = 0; i < moveParts.Length; i++)
             {
-                AddMovePart(_moveParts[i]);
+                AddMovePart(moveParts[i]);
             }
 
-            var attackParts = GetComponentsInChildren<IAttackingPart>();
+            var attackParts = GetComponentsInChildren<MonoBehaviour>().OfType<IAttackingPart>().ToArray();
             for (int i = 0; i < attackParts.Length; i++)
             {
-                AddAttackPart(_attackParts[i]);
+                AddAttackPart(attackParts[i]);
             }
         }
 

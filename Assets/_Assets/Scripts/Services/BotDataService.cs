@@ -12,6 +12,7 @@ namespace _Assets.Scripts.Services
     {
         //TODO: save in json instead
         private readonly Dictionary<BotPart, PartData> _placedParts = new();
+        public IReadOnlyDictionary<BotPart, PartData> PlacedParts => _placedParts;
         public event Action<IReadOnlyList<PartData>> OnSaveLoaded; 
 
         public void AddPart(BotPart botPart, PartData partData) => _placedParts.Add(botPart, partData);

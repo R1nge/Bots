@@ -14,6 +14,9 @@ namespace _Assets.Scripts.Gameplay.Parts
         public bool CanBePlaced => _canBePlaced;
         [SerializeField] private int maxHealth;
         private int _currentHealth;
+        private bool _checkIfCanBePlaced = true;
+
+        public void SetCheckIfCanBePlaced(bool checkIfCanBePlaced) => _checkIfCanBePlaced = checkIfCanBePlaced;
 
         private void Awake()
         {
@@ -38,6 +41,11 @@ namespace _Assets.Scripts.Gameplay.Parts
 
         private void Update()
         {
+            if (!_checkIfCanBePlaced)
+            {
+                return;
+            }
+
             var canPlace = true;
 
             foreach (var rayTransform in rayTransforms)
