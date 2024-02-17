@@ -7,15 +7,19 @@ namespace _Assets.Scripts.Services.StateMachine
     public class GameStatesFactory
     {
         private readonly UIStateMachine _uiStateMachine;
+        private readonly CameraFactory _cameraFactory;
+        private readonly PartSelectionService _partSelectionService;
 
-        public GameStatesFactory(UIStateMachine uiStateMachine)
+        public GameStatesFactory(UIStateMachine uiStateMachine, CameraFactory cameraFactory, PartSelectionService partSelectionService)
         {
             _uiStateMachine = uiStateMachine;
+            _cameraFactory = cameraFactory;
+            _partSelectionService = partSelectionService;
         }
         
-        public IGameState CreateGameState(GameStateMachine stateMachine)
+        public IGameState CreateBotEditorState(GameStateMachine stateMachine)
         {
-            return new GameState(stateMachine, _uiStateMachine);
+            return new BotEditorState(stateMachine, _uiStateMachine, _cameraFactory, _partSelectionService);
         }
     }
 }

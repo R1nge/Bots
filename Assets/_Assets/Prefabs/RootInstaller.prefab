@@ -64,3 +64,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiConfig: {fileID: 11400000, guid: c01c0ec4a5855f641b051cf97763b193, type: 2}
   partsConfig: {fileID: 11400000, guid: 852f328a2e951024d8300f6334074782, type: 2}
+  cameraConfig: {fileID: 11400000, guid: f3d331312575c3c45a7094942f8ece67, type: 2}

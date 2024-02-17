@@ -20,17 +20,17 @@ namespace _Assets.Scripts.Services.BotEditor
             _screenPoint = _camera.WorldToScreenPoint(gameObject.transform.position);
 
             // Calculate the offset between the game object's position and the mouse position.
-            _offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z));
+            _offset = gameObject.transform.position - _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z));
         }
 
         private void Update()
         {
             if (_isDragging)
             {
-                Vector3 currentScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z);
+                var currentScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z);
 
                 // Convert the screen point to world point plus the calculated offset.
-                Vector3 currentPosition = _camera.ScreenToWorldPoint(currentScreenPoint) + _offset;
+                var currentPosition = _camera.ScreenToWorldPoint(currentScreenPoint) + _offset;
                 
                 switch (markerAxis)
                 {

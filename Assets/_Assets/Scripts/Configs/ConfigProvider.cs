@@ -6,7 +6,9 @@ namespace _Assets.Scripts.Configs
     {
         [SerializeField] private UIConfig uiConfig;
         [SerializeField] private EditorPartsConfig partsConfig;
+        [SerializeField] private CameraConfig cameraConfig;
         public UIConfig UIConfig => uiConfig;
         public EditorPartsConfig PartsConfig => partsConfig;
+        public CameraConfig CameraConfig => cameraConfig;
     }
 }

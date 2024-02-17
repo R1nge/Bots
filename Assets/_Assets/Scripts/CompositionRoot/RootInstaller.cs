@@ -1,4 +1,5 @@
 using _Assets.Scripts.Configs;
+using _Assets.Scripts.Services;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

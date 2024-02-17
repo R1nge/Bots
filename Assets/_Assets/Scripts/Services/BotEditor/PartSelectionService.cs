@@ -1,5 +1,4 @@
-﻿using System;
-using _Assets.Scripts.Gameplay.Parts;
+﻿using _Assets.Scripts.Gameplay.Parts;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -8,16 +7,28 @@ namespace _Assets.Scripts.Services.BotEditor
 {
     public class PartSelectionService : MonoBehaviour
     {
-        [SerializeField] private new Camera camera;
         [SerializeField] private BotEditorMarkers botEditorMarkers;
         [SerializeField] private LayerMask editorLayer;
         [Inject] private IObjectResolver _objectResolver;
+        private Camera _camera;
         private BotPart _selectedPart;
         private BotEditorMarkers _botEditorMarkers;
         private EditMode _editMode;
 
+        private bool _initialized;
+
+        public void Init(Camera camera)
+        {
+            _camera = camera;
+            _initialized = true;
+        }
+
         private void Update()
         {
+            if (!_initialized)
+                return;
+
+
             SelectMode();
 
             if (_selectedPart != null)
@@ -27,7 +38,7 @@ namespace _Assets.Scripts.Services.BotEditor
 
             if (Input.GetMouseButtonDown(0))
             {
-                var ray = camera.ScreenPointToRay(Input.mousePosition);
+                var ray = _camera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out var hit))
                 {
                     ProcessHit(hit);
@@ -37,15 +48,15 @@ namespace _Assets.Scripts.Services.BotEditor
                     DeselectPart();
                 }
             }
-            
+
             if (Input.GetMouseButtonDown(0) && _selectedPart != null)
             {
-                var ray = camera.ScreenPointToRay(Input.mousePosition);
+                var ray = _camera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out var hit, float.MaxValue, layerMask: editorLayer))
                 {
                     if (hit.transform.TryGetComponent(out BotEditorMarker marker))
                     {
-                        marker.StartDragging(camera);
+                        marker.StartDragging(_camera);
                     }
                 }
             }
@@ -148,7 +159,7 @@ namespace _Assets.Scripts.Services.BotEditor
 
         private void Rotate()
         {
-            var mouseWorldPosition = camera.ScreenToWorldPoint(Input.mousePosition);
+            var mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
             _botEditorMarkers.Rotate(mouseWorldPosition.x, BotEditorMarker.MarkerAxisType.X);
         }
 
