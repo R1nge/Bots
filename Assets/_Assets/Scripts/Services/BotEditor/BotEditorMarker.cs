@@ -19,7 +19,7 @@ namespace _Assets.Scripts.Services.BotEditor
             
             _screenPoint = _camera.WorldToScreenPoint(gameObject.transform.position);
 
-            // Calculate the offset between the game object's position and the mouse position.
+            //It assumes that the camera is not moving during the drag.
             _offset = gameObject.transform.position - _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z));
         }
 
@@ -43,7 +43,7 @@ namespace _Assets.Scripts.Services.BotEditor
                         transform.root.position = position2;
                         break;
                     case MarkerAxisType.Z:
-                        var position3 = new Vector3(transform.root.position.x, transform.root.position.y, currentPosition.y);
+                        var position3 = new Vector3(transform.root.position.x, transform.root.position.y, currentPosition.x);
                         transform.root.position = position3;
                         break;
                     default:

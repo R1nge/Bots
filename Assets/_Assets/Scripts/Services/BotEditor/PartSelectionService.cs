@@ -1,4 +1,5 @@
 ﻿using _Assets.Scripts.Gameplay.Parts;
+using _Assets.Scripts.Misc;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -57,6 +58,7 @@ namespace _Assets.Scripts.Services.BotEditor
                     if (hit.transform.TryGetComponent(out BotEditorMarker marker))
                     {
                         marker.StartDragging(_camera);
+                        _camera.GetComponent<FlyCamera>().enabled = false;
                     }
                 }
             }
@@ -67,6 +69,8 @@ namespace _Assets.Scripts.Services.BotEditor
                 {
                     marker.StopDragging();
                 }
+                
+                _camera.GetComponent<FlyCamera>().enabled = true;
             }
         }
 
