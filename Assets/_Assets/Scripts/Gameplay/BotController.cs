@@ -8,8 +8,8 @@ namespace _Assets.Scripts.Gameplay
 {
     public class BotController : BotPart
     {
-        private List<IMovingPart> _moveParts;
-        private List<IAttackingPart> _attackParts;
+        private readonly List<IMovingPart> _moveParts = new();
+        private readonly List<IAttackingPart> _attackParts = new();
 
         private void Start()
         {
