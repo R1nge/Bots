@@ -50,7 +50,7 @@ namespace _Assets.Scripts.Services.BotEditor
                 {
                     if (hit.transform.TryGetComponent(out BotEditorMarker marker))
                     {
-                        marker.StartDragging(_camera);
+                        marker.StartDragging(_camera, hit.point);
                         _camera.GetComponent<FlyCamera>().enabled = false;
                     }
                 }

@@ -9,13 +9,14 @@ namespace _Assets.Scripts.Services.BotEditor
         [SerializeField] private MarkerAxisType markerAxis;
         private EditMode _editMode;
         private bool _isDragging;
-        private Vector3 _previousPosition;
+        private Vector3 _mouseStartPosition;
         private Camera _camera;
 
-        public void StartDragging(Camera camera)
+        public void StartDragging(Camera camera, Vector3 mousePosition)
         {
             _camera = camera;
             _isDragging = true;
+            _mouseStartPosition = mousePosition;
         }
 
         public void UpdateEditMode(EditMode editMode) => _editMode = editMode;
@@ -91,29 +92,17 @@ namespace _Assets.Scripts.Services.BotEditor
                     switch (markerAxis)
                     {
                         case MarkerAxisType.X:
-                            RotateAroundAxis(targetPoint.x - _previousPosition.x, Vector3.right);
+                            RotateAroundAxis(targetPoint.x - _mouseStartPosition.x, Vector3.right);
                             break;
                         case MarkerAxisType.Y:
-                            RotateAroundAxis(targetPoint.y - _previousPosition.y, Vector3.up);
+                            RotateAroundAxis(targetPoint.y - _mouseStartPosition.y, Vector3.up);
                             break;
                         case MarkerAxisType.Z:
-                            RotateAroundAxis(targetPoint.z - _previousPosition.z, Vector3.forward);
+                            RotateAroundAxis(targetPoint.z - _mouseStartPosition.z, Vector3.forward);
                             break;
                     }
 
-                    _previousPosition = targetPoint;
-                }
-            }
-            else
-            {
-                if (Input.GetMouseButtonDown(0) && _camera != null)
-                {
-                    var plane = new Plane(-_camera.transform.forward, transform.root.position);
-                    var ray = _camera.ScreenPointToRay(Mouse.current.position.value);
-                    if (plane.Raycast(ray, out var distance))
-                    {
-                        _previousPosition = ray.GetPoint(distance);
-                    }
+                    _mouseStartPosition = targetPoint;
                 }
             }
         }
