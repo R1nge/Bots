@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace _Assets.Scripts.Services.BotEditor
 {
@@ -44,7 +44,7 @@ namespace _Assets.Scripts.Services.BotEditor
             {
                 var plane = new Plane(-_camera.transform.forward, transform.root.position);
 
-                var ray = _camera.ScreenPointToRay(Input.mousePosition);
+                var ray = _camera.ScreenPointToRay(Mouse.current.position.value);
 
                 if (plane.Raycast(ray, out var distance))
                 {
@@ -82,7 +82,7 @@ namespace _Assets.Scripts.Services.BotEditor
             if (_isDragging)
             {
                 var plane = new Plane(-_camera.transform.forward, transform.root.position);
-                var ray = _camera.ScreenPointToRay(Input.mousePosition);
+                var ray = _camera.ScreenPointToRay(Mouse.current.position.value);
 
                 if (plane.Raycast(ray, out var distance))
                 {
@@ -109,7 +109,7 @@ namespace _Assets.Scripts.Services.BotEditor
                 if (Input.GetMouseButtonDown(0) && _camera != null)
                 {
                     var plane = new Plane(-_camera.transform.forward, transform.root.position);
-                    var ray = _camera.ScreenPointToRay(Input.mousePosition);
+                    var ray = _camera.ScreenPointToRay(Mouse.current.position.value);
                     if (plane.Raycast(ray, out var distance))
                     {
                         _previousPosition = ray.GetPoint(distance);
@@ -130,7 +130,7 @@ namespace _Assets.Scripts.Services.BotEditor
             {
                 var plane = new Plane(_camera.transform.forward, transform.root.position);
 
-                var ray = _camera.ScreenPointToRay(Input.mousePosition);
+                var ray = _camera.ScreenPointToRay(Mouse.current.position.value);
 
                 if (plane.Raycast(ray, out var distance))
                 {
