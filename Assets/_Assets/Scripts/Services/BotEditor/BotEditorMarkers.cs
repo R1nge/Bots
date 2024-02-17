@@ -7,17 +7,6 @@ namespace _Assets.Scripts.Services.BotEditor
     {
         [SerializeField] private BotEditorMarker[] markers;
 
-        public void Move(Vector3 position, BotEditorMarker.MarkerAxisType markerAxisType)
-        {
-            foreach (var marker in markers)
-            {
-                if (marker.MarkerAxis == markerAxisType)
-                {
-                    marker.Move(position);
-                }
-            }
-        }
-
         public void Rotate(float distance, BotEditorMarker.MarkerAxisType markerAxisType)
         {
             foreach (var marker in markers)

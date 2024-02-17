@@ -7,16 +7,52 @@ namespace _Assets.Scripts.Services.BotEditor
     {
         [SerializeField] private MarkerAxisType markerAxis;
         public MarkerAxisType MarkerAxis => markerAxis;
+        private bool _isDragging;
+        private Vector3 _screenPoint;
+        private Vector3 _offset;
 
-        public void Move(Vector3 position)
+        public void StartDragging()
         {
-            switch (markerAxis)
+            _isDragging = true;
+            
+            _screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+
+            // Calculate the offset between the game object's position and the mouse position.
+            _offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z));
+        }
+
+        private void Update()
+        {
+            if (_isDragging)
             {
-                case MarkerAxisType.X:
-                    transform.root.position = position;
-                    //transform.root.position += Vector3.one * distance;
-                    break;
+                Vector3 currentScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z);
+
+                // Convert the screen point to world point plus the calculated offset.
+                Vector3 currentPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint) + _offset;
+                
+                switch (markerAxis)
+                {
+                    case MarkerAxisType.X:
+                        var position = new Vector3(currentPosition.x, transform.root.position.y, transform.root.position.z);
+                        transform.root.position = position;
+                        break;
+                    case MarkerAxisType.Y:
+                        var position2 = new Vector3(transform.root.position.x, currentPosition.y, transform.root.position.z);
+                        transform.root.position = position2;
+                        break;
+                    case MarkerAxisType.Z:
+                        var position3 = new Vector3(transform.root.position.x, transform.root.position.y, currentPosition.y);
+                        transform.root.position = position3;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }                
             }
+        }
+
+        public void StopDragging()
+        {
+            _isDragging = false;
         }
 
         public void Rotate(float distance)

@@ -10,11 +10,11 @@ namespace _Assets.Scripts.Services.BotEditor
     {
         [SerializeField] private new Camera camera;
         [SerializeField] private BotEditorMarkers botEditorMarkers;
+        [SerializeField] private LayerMask editorLayer;
         [Inject] private IObjectResolver _objectResolver;
         private BotPart _selectedPart;
         private BotEditorMarkers _botEditorMarkers;
         private EditMode _editMode;
-        private Vector3 _mouseStartPosition;
 
         private void Update()
         {
@@ -35,6 +35,26 @@ namespace _Assets.Scripts.Services.BotEditor
                 else
                 {
                     DeselectPart();
+                }
+            }
+            
+            if (Input.GetMouseButtonDown(0) && _selectedPart != null)
+            {
+                var ray = camera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out var hit, float.MaxValue, layerMask: editorLayer))
+                {
+                    if (hit.transform.TryGetComponent(out BotEditorMarker marker))
+                    {
+                        marker.StartDragging();
+                    }
+                }
+            }
+            else if (Input.GetMouseButtonUp(0) && _selectedPart != null)
+            {
+                var markers = _selectedPart.GetComponentsInChildren<BotEditorMarker>();
+                foreach (var marker in markers)
+                {
+                    marker.StopDragging();
                 }
             }
         }
@@ -102,7 +122,7 @@ namespace _Assets.Scripts.Services.BotEditor
             switch (_editMode)
             {
                 case EditMode.Move:
-                    Move();
+
                     break;
                 case EditMode.Rotate:
                     Rotate();
@@ -112,7 +132,7 @@ namespace _Assets.Scripts.Services.BotEditor
                     break;
             }
         }
-        
+
         //Or can try different approach
         //Let the player spawn the body
         //And use surface normals to spawn objects
@@ -123,25 +143,8 @@ namespace _Assets.Scripts.Services.BotEditor
         //If hit the non-placable part, do nothing
         //Still need to implement the arrows like in the editor to be able to drag
 
-        private void Move()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                _mouseStartPosition = camera.ScreenToWorldPoint(Input.mousePosition);
-            }
 
-            if (Input.GetMouseButtonUp(0))
-            {
-                _mouseStartPosition = Vector3.zero;
-            }
-
-            if (Input.GetMouseButton(0))
-            {
-                var mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
-                var delta = mousePosition - _mouseStartPosition;
-                _botEditorMarkers.Move(delta, BotEditorMarker.MarkerAxisType.X);
-            }
-        }
+        //I think it should just spawn the markers, and they will do the rest
 
         private void Rotate()
         {

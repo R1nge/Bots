@@ -7,31 +7,17 @@ using UnityEngine;
 
 namespace _Assets.Scripts.Gameplay
 {
-    public class BotController : MonoBehaviour, IDamageable
+    public class BotController : BotPart
     {
-        //So, bot has different parts
-        //Attack stuff
-        //Move stuff
-        //Each part has health to it
-        [SerializeField] private int maxHealth;
-        private int _currentHealth;
         [SerializeField] private List<MovePart> _moveParts;
         [SerializeField] private List<AttackPart> _attackParts;
 
-
-        public void TakeDamage(int damage)
+        private void Start()
         {
-            if (damage <= 0)
+            var moveParts = GetComponentsInChildren<MovePart>();
+            for (int i = 0; i < moveParts.Length; i++)
             {
-                Debug.LogWarning("Damage must be greater than 0", this);
-                return;
-            }
-
-            _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, maxHealth);
-
-            if (_currentHealth <= 0)
-            {
-                Debug.LogWarning("Bot has been destroyed", this);
+                AddMovePart(_moveParts[i]);
             }
         }
 

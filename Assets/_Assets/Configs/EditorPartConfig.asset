@@ -27,3 +27,17 @@ MonoBehaviour:
     prefab: {fileID: 1364191152137717465, guid: fba2b4d8fb86c03479a009c07c6a824a, type: 3}
     name: Small wheel
     cost: 100
+  - partData:
+      positionX: 0
+      positionY: 0
+      positionZ: 0
+      rotationX: 0
+      rotationY: 0
+      rotationZ: 0
+      scaleX: 1
+      scaleY: 1
+      scaleZ: 1
+      partType: 1
+    prefab: {fileID: 1453753198505060290, guid: 71f745672c5a5f945aef4eea85ad9e3c, type: 3}
+    name: Small wheel
+    cost: 100
