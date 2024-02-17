@@ -10,12 +10,14 @@ namespace _Assets.Scripts.Services.BotEditor
         private bool _isDragging;
         private Vector3 _screenPoint;
         private Vector3 _offset;
+        private Camera _camera;
 
-        public void StartDragging()
+        public void StartDragging(Camera camera)
         {
+            _camera = camera;
             _isDragging = true;
             
-            _screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+            _screenPoint = _camera.WorldToScreenPoint(gameObject.transform.position);
 
             // Calculate the offset between the game object's position and the mouse position.
             _offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z));
@@ -28,7 +30,7 @@ namespace _Assets.Scripts.Services.BotEditor
                 Vector3 currentScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z);
 
                 // Convert the screen point to world point plus the calculated offset.
-                Vector3 currentPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint) + _offset;
+                Vector3 currentPosition = _camera.ScreenToWorldPoint(currentScreenPoint) + _offset;
                 
                 switch (markerAxis)
                 {

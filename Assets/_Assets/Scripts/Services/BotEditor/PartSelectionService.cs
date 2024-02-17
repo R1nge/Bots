@@ -45,7 +45,7 @@ namespace _Assets.Scripts.Services.BotEditor
                 {
                     if (hit.transform.TryGetComponent(out BotEditorMarker marker))
                     {
-                        marker.StartDragging();
+                        marker.StartDragging(camera);
                     }
                 }
             }

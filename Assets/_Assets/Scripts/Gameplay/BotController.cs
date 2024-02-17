@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using _Assets.Scripts.Gameplay.Parts;
 using _Assets.Scripts.Gameplay.Parts.Attack;
 using _Assets.Scripts.Gameplay.Parts.Move;
