@@ -1,5 +1,5 @@
 ﻿using _Assets.Scripts.Services;
-using _Assets.Scripts.Services.StateMachine;
+using _Assets.Scripts.Services.StateMachines.BotTestFieldStateMachine;
 using _Assets.Scripts.Services.UIs;
 using _Assets.Scripts.Services.UIs.StateMachine;
 using VContainer;
@@ -17,8 +17,8 @@ namespace _Assets.Scripts.CompositionRoot
             builder.Register<UIStateMachine>(Lifetime.Singleton);
             builder.Register<UIFactory>(Lifetime.Singleton);
 
-            builder.Register<GameStatesFactory>(Lifetime.Singleton);
-            builder.Register<GameStateMachine>(Lifetime.Singleton);
+            builder.Register<BotTestFieldStatesFactory>(Lifetime.Singleton);
+            builder.Register<BotTestFieldStateMachine>(Lifetime.Singleton);
         }
     }
 }

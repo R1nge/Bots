@@ -20,7 +20,13 @@ namespace _Assets.Scripts.Services
 
         public bool CanSave()
         {
+            if (_placedParts.Count == 0)
+            {
+                return false;
+            }
+            
             bool canSave = true;
+
             foreach (var pair in _placedParts)
             {
                 if (!pair.Key.CanBePlaced)

@@ -18,6 +18,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
         public event Action OnSell;
         public event Action OnSave;
         public event Action OnLoad;
+        public event Action OnTest;
 
         private void Start()
         {
@@ -26,6 +27,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             sellButton.onClick.AddListener(Sell);
             saveButton.onClick.AddListener(Save);
             loadButton.onClick.AddListener(Load);
+            testButton.onClick.AddListener(Test);
         }
 
         private void BuySmallWheel() => OnBuy?.Invoke(PartData.PartType.SmallWheel);
@@ -33,6 +35,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
         private void Sell() => OnSell?.Invoke();
         private void Save() => OnSave?.Invoke();
         private void Load() => OnLoad?.Invoke();
+        private void Test() => OnTest?.Invoke();
 
         private void OnDestroy()
         {
@@ -41,6 +44,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             sellButton.onClick.RemoveAllListeners();
             saveButton.onClick.RemoveAllListeners();
             loadButton.onClick.RemoveAllListeners();
+            testButton.onClick.RemoveAllListeners();
         }
     }
 }

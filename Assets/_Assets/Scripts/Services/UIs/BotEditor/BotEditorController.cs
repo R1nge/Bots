@@ -1,7 +1,7 @@
-﻿using System;
-using _Assets.Scripts.Gameplay.Parts;
+﻿using _Assets.Scripts.Gameplay.Parts;
 using _Assets.Scripts.Services.BotEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 
 namespace _Assets.Scripts.Services.UIs.BotEditor
@@ -20,6 +20,12 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             botEditorView.OnSell += Sell;
             botEditorView.OnSave += Save;
             botEditorView.OnLoad += Load;
+            botEditorView.OnTest += Test;
+        }
+
+        private void Test()
+        {
+            SceneManager.LoadSceneAsync("_Assets/Scenes/BotTestField", LoadSceneMode.Single);
         }
 
         private void Update()
@@ -52,6 +58,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             botEditorView.OnSell -= Sell;
             botEditorView.OnSave -= Save;
             botEditorView.OnLoad -= Load;
+            botEditorView.OnTest -= Test;
         }
     }
 }

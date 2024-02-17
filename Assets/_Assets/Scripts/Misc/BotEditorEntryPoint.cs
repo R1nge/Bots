@@ -1,4 +1,4 @@
-﻿using _Assets.Scripts.Services.StateMachine;
+﻿using _Assets.Scripts.Services.StateMachines.BotEditorStateMachine;
 using UnityEngine;
 using VContainer;
 
@@ -6,13 +6,9 @@ namespace _Assets.Scripts.Misc
 {
     public class BotEditorEntryPoint : MonoBehaviour
     {
-        [Inject] private GameStatesFactory _gameStatesFactory;
-        [Inject] private GameStateMachine _gameStateMachine;
+        [Inject] private BotEditorStatesFactory _botEditorStatesFactory;
+        [Inject] private BotEditorStateMachine _botEditorStateMachine;
 
-        private void Start()
-        {
-            _gameStateMachine.AddState(GameStateType.BotEditor, _gameStatesFactory.CreateBotEditorState(_gameStateMachine));
-            _gameStateMachine.SwitchState(GameStateType.BotEditor);
-        }
+        private void Start() => _botEditorStateMachine.SwitchState(BotEditorStateType.BotEditor);
     }
 }
