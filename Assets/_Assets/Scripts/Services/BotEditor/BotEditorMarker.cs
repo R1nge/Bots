@@ -18,11 +18,7 @@ namespace _Assets.Scripts.Services.BotEditor
             _isDragging = true;
         }
 
-        public void UpdateEditMode(EditMode editMode)
-        {
-            _editMode = editMode;
-            UpdateVisuals(_editMode);
-        }
+        public void UpdateEditMode(EditMode editMode) => _editMode = editMode;
 
         private void Update()
         {
@@ -110,7 +106,7 @@ namespace _Assets.Scripts.Services.BotEditor
             }
             else
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && _camera != null)
                 {
                     var plane = new Plane(-_camera.transform.forward, transform.root.position);
                     var ray = _camera.ScreenPointToRay(Input.mousePosition);
@@ -165,19 +161,6 @@ namespace _Assets.Scripts.Services.BotEditor
 
                     transform.root.localScale = currentScale;
                 }
-            }
-        }
-
-        private void UpdateVisuals(EditMode editMode)
-        {
-            switch (_editMode)
-            {
-                case EditMode.Move:
-                    break;
-                case EditMode.Rotate:
-                    break;
-                case EditMode.Scale:
-                    break;
             }
         }
 

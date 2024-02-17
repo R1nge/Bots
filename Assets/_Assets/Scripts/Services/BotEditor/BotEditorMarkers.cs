@@ -31,6 +31,7 @@ namespace _Assets.Scripts.Services.BotEditor
                     foreach (var marker in moveMarkers)
                     {
                         marker.gameObject.SetActive(true);
+                        marker.UpdateEditMode(EditMode.Move);
                     }
 
                     break;
@@ -38,6 +39,7 @@ namespace _Assets.Scripts.Services.BotEditor
                     foreach (var marker in rotateMarkers)
                     {
                         marker.gameObject.SetActive(true);
+                        marker.UpdateEditMode(EditMode.Rotate);
                     }
 
                     break;
@@ -45,6 +47,7 @@ namespace _Assets.Scripts.Services.BotEditor
                     foreach (var marker in scaleMarkers)
                     {
                         marker.gameObject.SetActive(true);
+                        marker.UpdateEditMode(EditMode.Scale);
                     }
 
                     break;

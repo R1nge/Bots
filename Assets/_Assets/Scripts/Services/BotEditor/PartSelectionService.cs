@@ -1,6 +1,8 @@
-﻿using _Assets.Scripts.Gameplay.Parts;
+﻿using System;
+using _Assets.Scripts.Gameplay.Parts;
 using _Assets.Scripts.Misc;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
 
@@ -28,6 +30,8 @@ namespace _Assets.Scripts.Services.BotEditor
         {
             if (!_initialized)
                 return;
+
+            WarpMouse();
 
             SelectMode();
 
@@ -65,6 +69,31 @@ namespace _Assets.Scripts.Services.BotEditor
                 }
 
                 _camera.GetComponent<FlyCamera>().enabled = true;
+            }
+        }
+
+        private void WarpMouse()
+        {
+            Debug.Log(Mouse.current.position.value);
+            
+            if (Mouse.current.position.x.value == 0)
+            {
+                Mouse.current.WarpCursorPosition(new Vector2(Screen.width, Mouse.current.position.y.value));
+            }
+
+            if (Mouse.current.position.y.value == 0)
+            {
+                Mouse.current.WarpCursorPosition(new Vector2(Mouse.current.position.x.value, Screen.height));
+            }
+
+            if (Math.Abs(Mouse.current.position.x.value - Screen.width) < 2f)
+            {
+                Mouse.current.WarpCursorPosition(new Vector2(0, Mouse.current.position.y.value));
+            }
+
+            if (Math.Abs(Mouse.current.position.y.value - Screen.height) < 2f)
+            {
+                Mouse.current.WarpCursorPosition(new Vector2(Mouse.current.position.x.value, 0));
             }
         }
 
