@@ -13,6 +13,7 @@ namespace _Assets.Scripts.CompositionRoot
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(configProvider);
+            builder.Register<BotDataService>(Lifetime.Singleton);
         }
     }
 }

@@ -9,12 +9,16 @@ namespace _Assets.Scripts.Services.StateMachine
         private IGameState _currentGameState;
         private GameStateType _currentGameStateType;
 
-        public GameStateMachine(GameStatesFactory gameStatesFactory)
+        public void AddState(GameStateType gameStateType, IGameState gameState)
         {
-            _states = new Dictionary<GameStateType, IGameState>
+            if (_states.TryAdd(gameStateType, gameState))
             {
-                { GameStateType.BotEditor, gameStatesFactory.CreateBotEditorState(this) }
-            };
+                Debug.Log($"Added state {gameStateType}");
+            }
+            else
+            {
+                Debug.LogError($"State {gameStateType} already exists");
+            }
         }
 
         public void SwitchState(GameStateType gameStateType)

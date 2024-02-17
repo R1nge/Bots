@@ -4,15 +4,15 @@ using VContainer;
 
 namespace _Assets.Scripts.Misc
 {
-    public class BotEditorEntryPoint : MonoBehaviour
+    public class BotTestFieldEntryPoint : MonoBehaviour
     {
         [Inject] private GameStatesFactory _gameStatesFactory;
         [Inject] private GameStateMachine _gameStateMachine;
 
         private void Start()
         {
-            _gameStateMachine.AddState(GameStateType.BotEditor, _gameStatesFactory.CreateBotEditorState(_gameStateMachine));
-            _gameStateMachine.SwitchState(GameStateType.BotEditor);
+            _gameStateMachine.AddState(GameStateType.TestField, _gameStatesFactory.CreateBotTestFieldState(_gameStateMachine));
+            _gameStateMachine.SwitchState(GameStateType.TestField);
         }
     }
 }

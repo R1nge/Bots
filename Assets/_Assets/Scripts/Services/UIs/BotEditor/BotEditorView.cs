@@ -11,7 +11,9 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
         [SerializeField] private Button buyMediumBodyButton;
         [SerializeField] private Button sellButton;
         [SerializeField] private Button saveButton, loadButton;
+        [SerializeField] private Button testButton;
         public Button SaveButton => saveButton;
+        public Button TestButton => testButton;
         public event Action<PartData.PartType> OnBuy;
         public event Action OnSell;
         public event Action OnSave;

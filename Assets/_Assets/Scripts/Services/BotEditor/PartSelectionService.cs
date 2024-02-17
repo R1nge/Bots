@@ -165,24 +165,24 @@ namespace _Assets.Scripts.Services.BotEditor
         //If hit the non-placeable part, forbid to spawn the part
 
         // BotPart -> PlaceablePart 	->  BotController
-        // ->  PlaceableMoveablePart
-        // ->  PlaceableAttackingPart
+        //                              ->  PlaceableMoveablePart
+        //                              ->  PlaceableAttackingPart
         //
-        // -> NotPlaceablePart	-> NotPlaceableMoveablePart	-> Wheel
-        // -> NotPlaceableAttackingPart	-> Hammer
+        //          -> NotPlaceablePart	-> NotPlaceableMoveablePart	-> Wheel
+        //          -> NotPlaceableAttackingPart	-> Hammer
         //
         //
         //
-        //     BotPart -> BotController
-        //             -> AttackingPart 	-> PlaceableAttackingPart (IPlaceable)
+        // BotPart      -> BotController
+        //              -> AttackingPart 	-> PlaceableAttackingPart (IPlaceable)
         //                                  -> NonPlaceableAttackingPart
         //
-        //             -> MoveablePart		-> PlaceableMoveablePart (IPlaceable)
+        //              -> MoveablePart		-> PlaceableMoveablePart (IPlaceable)
         //                                  -> NonPlacealbeMoveablePart
         //
         //     What if I want to be able to create a moveable attacking part?
 
-        // BotPart -> BotController
+        // BotPart  -> BotController
         //          -> IAttackable		-> PlaceableAttackingPart (IPlaceable)
         //                              -> NonPlaceableAttackingPart
         //

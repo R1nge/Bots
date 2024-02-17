@@ -9,6 +9,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
     public class BotEditorController : MonoBehaviour
     {
         [SerializeField] private BotEditorView botEditorView;
+        [Inject] private BotDataService _botDataService;
         [Inject] private BotEditorService _botEditorService;
         [Inject] private PartSelectionService _partSelectionService;
         private BotPart _botPart;
@@ -23,7 +24,8 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
 
         private void Update()
         {
-            botEditorView.SaveButton.interactable = _botEditorService.CanSave();
+            botEditorView.SaveButton.interactable = _botDataService.CanSave();
+            botEditorView.TestButton.interactable = _botDataService.CanSave();
         }
 
         private void Sell()
@@ -36,22 +38,13 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
 
         private void Buy(PartData.PartType type)
         {
-            //Spawn preview
-            //Which checks if can be placed
-            //LMB to place it
             _botPart = _botEditorService.SpawnNew(Vector3.zero, type);
             _partSelectionService.Select(_botPart);
         }
 
-        private void Save()
-        {
-            _botEditorService.Save();
-        }
+        private void Save() => _botDataService.Save();
 
-        private void Load()
-        {
-            _botEditorService.Load();
-        }
+        private void Load() => _botDataService.Load();
 
         private void OnDestroy()
         {

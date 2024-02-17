@@ -21,5 +21,10 @@ namespace _Assets.Scripts.Services.StateMachine
         {
             return new BotEditorState(stateMachine, _uiStateMachine, _cameraFactory, _partSelectionService);
         }
+
+        public IGameState CreateBotTestFieldState(GameStateMachine stateMachine)
+        {
+            return new BotTestFieldState(stateMachine, _uiStateMachine, _cameraFactory);
+        }
     }
 }
