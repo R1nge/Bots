@@ -1,6 +1,6 @@
-﻿using _Assets.Scripts.Services.BotEditor;
+﻿using _Assets.Scripts.Misc;
+using _Assets.Scripts.Services.BotEditor;
 using _Assets.Scripts.Services.UIs.StateMachine;
-using UnityEngine;
 
 namespace _Assets.Scripts.Services.StateMachine.States
 {
@@ -23,7 +23,7 @@ namespace _Assets.Scripts.Services.StateMachine.States
         {
             _uiStateMachine.SwitchState(UIStateType.BotEditor);
             var camera = _cameraFactory.SpawnCamera(CameraFactory.CameraType.Editor);
-            _partSelectionService.Init(camera.GetComponent<Camera>());
+            _partSelectionService.Init(camera.GetComponent<FlyCamera>());
         }
 
         public void Exit() { }

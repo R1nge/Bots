@@ -4,11 +4,16 @@ namespace _Assets.Scripts.Misc
 {
     public class FlyCamera : MonoBehaviour
     {
-        public float acceleration = 50;
-        public float sprintAccelerationMultiplier = 4;
-        public float lookSensitivity = 1;
-        public float dampingCoefficient = 5; // how quickly you break to a halt after you stop your input
+        [SerializeField] private new Camera camera;
+        [SerializeField] private float acceleration = 50;
+        [SerializeField] private float sprintAccelerationMultiplier = 4;
+        [SerializeField] private float lookSensitivity = 1;
+        [SerializeField] private float dampingCoefficient = 5; // how quickly you break to a halt after you stop your input
+        [SerializeField] private float lookXLimit = 90;
         private Vector3 _velocity;
+        private float _rotationX, _rotationY;
+
+        public Camera Camera => camera;
 
         private void Update()
         {
@@ -19,15 +24,12 @@ namespace _Assets.Scripts.Misc
 
         private void UpdateInput()
         {
-            // Position
             _velocity += GetAccelerationVector() * Time.deltaTime;
-
-            // Rotation
-            Vector2 mouseDelta = lookSensitivity * new Vector2(Input.GetAxis("Mouse X"), -Input.GetAxis("Mouse Y"));
-            Quaternion rotation = transform.rotation;
-            Quaternion horiz = Quaternion.AngleAxis(mouseDelta.x, Vector3.up);
-            Quaternion vert = Quaternion.AngleAxis(mouseDelta.y, Vector3.right);
-            transform.rotation = horiz * rotation * vert;
+            var mouseX = Input.GetAxis("Mouse X") * lookSensitivity;
+            var mouseY = -Input.GetAxis("Mouse Y") * lookSensitivity;
+            _rotationX = Mathf.Clamp(_rotationX + mouseY, -lookXLimit, lookXLimit);
+            camera.transform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
+            transform.localRotation *= Quaternion.Euler(0, mouseX, 0);
         }
 
         private Vector3 GetAccelerationVector()
@@ -46,11 +48,11 @@ namespace _Assets.Scripts.Misc
             AddMovement(KeyCode.A, Vector3.left);
             AddMovement(KeyCode.Space, Vector3.up);
             AddMovement(KeyCode.LeftControl, Vector3.down);
-            Vector3 direction = transform.TransformVector(moveInput.normalized);
+            var direction = camera.transform.TransformVector(moveInput.normalized);
 
             if (Input.GetKey(KeyCode.LeftShift))
-                return direction * (acceleration * sprintAccelerationMultiplier); // "sprinting"
-            return direction * acceleration; // "walking"
+                return direction * (acceleration * sprintAccelerationMultiplier);
+            return direction * acceleration;
         }
     }
 }

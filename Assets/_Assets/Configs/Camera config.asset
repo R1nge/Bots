@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2844d42b18474c4b91a20fd83cc0ea5b, type: 3}
   m_Name: Camera config
   m_EditorClassIdentifier: 
-  editorCamera: {fileID: 1447818717319678349, guid: 13542c56fb1ffe9419e9a29d086bc8c2, type: 3}
+  editorCamera: {fileID: 6538035164144090206, guid: 13542c56fb1ffe9419e9a29d086bc8c2, type: 3}
   gameCamera: {fileID: 0}

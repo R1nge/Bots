@@ -12,7 +12,7 @@ namespace _Assets.Scripts.Services.BotEditor
         [SerializeField] private BotEditorMarkers botEditorMarkers;
         [SerializeField] private LayerMask editorLayer;
         [Inject] private IObjectResolver _objectResolver;
-        private Camera _camera;
+        private FlyCamera _flyCamera;
         private BotPart _selectedPart;
         private BotEditorMarkers _botEditorMarkers;
         private EditMode _editMode;
@@ -20,9 +20,9 @@ namespace _Assets.Scripts.Services.BotEditor
 
         public BotPart SelectedPart => _selectedPart;
 
-        public void Init(Camera camera)
+        public void Init(FlyCamera camera)
         {
-            _camera = camera;
+            _flyCamera = camera;
             _initialized = true;
         }
 
@@ -44,7 +44,7 @@ namespace _Assets.Scripts.Services.BotEditor
 
             if (Input.GetMouseButtonDown(0))
             {
-                var ray = _camera.ScreenPointToRay(Input.mousePosition);
+                var ray = _flyCamera.Camera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out var hit))
                 {
                     ProcessHit(hit);
@@ -57,13 +57,13 @@ namespace _Assets.Scripts.Services.BotEditor
 
             if (Input.GetMouseButtonDown(0) && _selectedPart != null)
             {
-                var ray = _camera.ScreenPointToRay(Input.mousePosition);
+                var ray = _flyCamera.Camera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out var hit, float.MaxValue, layerMask: editorLayer))
                 {
                     if (hit.transform.TryGetComponent(out BotEditorMarker marker))
                     {
-                        marker.StartDragging(_camera, hit.point);
-                        _camera.GetComponent<FlyCamera>().enabled = false;
+                        marker.StartDragging(_flyCamera.Camera, hit.point);
+                        _flyCamera.enabled = false;
                     }
                 }
             }
@@ -75,7 +75,7 @@ namespace _Assets.Scripts.Services.BotEditor
                     marker.StopDragging();
                 }
 
-                _camera.GetComponent<FlyCamera>().enabled = true;
+                _flyCamera.enabled = true;
             }
         }
 
