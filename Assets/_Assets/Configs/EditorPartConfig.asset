@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: EditorPartConfig
   m_EditorClassIdentifier: 
   editorParts:
-  - partData:
+  - minScale: {x: 0.5, y: 0.5, z: 0.5}
+    maxScale: {x: 1, y: 1, z: 1}
+    partData:
       positionX: 0
       positionY: 0
       positionZ: 0
@@ -25,10 +27,11 @@ MonoBehaviour:
       scaleZ: 1
       partType: 3
     prefab: {fileID: 7383593896667432326, guid: fba2b4d8fb86c03479a009c07c6a824a, type: 3}
-    preview: {fileID: -8017053919359975083, guid: 187a1a67706f7d14a8f753955de479fb, type: 3}
     name: Small wheel
     cost: 100
-  - partData:
+  - minScale: {x: 0.5, y: 0.5, z: 0.5}
+    maxScale: {x: 1, y: 1, z: 1}
+    partData:
       positionX: 0
       positionY: 0
       positionZ: 0
@@ -40,6 +43,5 @@ MonoBehaviour:
       scaleZ: 1
       partType: 1
     prefab: {fileID: 1453753198505060290, guid: 71f745672c5a5f945aef4eea85ad9e3c, type: 3}
-    preview: {fileID: 367388797371965986, guid: 401682190dfbf8a42a406da5ca47dc5f, type: 3}
     name: Medium body
     cost: 100

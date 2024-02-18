@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using _Assets.Scripts.Configs;
+using _Assets.Scripts.Gameplay.Parts;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using VContainer;
 
 namespace _Assets.Scripts.Services.BotEditor
 {
@@ -11,6 +14,7 @@ namespace _Assets.Scripts.Services.BotEditor
         private bool _isDragging;
         private Vector3 _mouseStartPosition;
         private Camera _camera;
+        [Inject] private ConfigProvider _configProvider;
 
         public void StartDragging(Camera camera, Vector3 mousePosition)
         {
@@ -130,23 +134,17 @@ namespace _Assets.Scripts.Services.BotEditor
                     // Convert direction from world space to local space
                     var localDirectionToTarget = transform.root.InverseTransformDirection(directionToTarget) * 0.01f;
 
-                    // Apply scaling only along the selected local axis
-                    switch (markerAxis)
-                    {
-                        case MarkerAxisType.X:
-                            currentScale.x += localDirectionToTarget.x;
-                            break;
-                        case MarkerAxisType.Y:
-                            currentScale.y += localDirectionToTarget.y;
-                            break;
-                        case MarkerAxisType.Z:
-                            currentScale.z += localDirectionToTarget.z;
-                            break;
-                    }
+                    currentScale.x += localDirectionToTarget.x;
+                    currentScale.y += localDirectionToTarget.x;
+                    currentScale.z += localDirectionToTarget.x;
 
-                    currentScale.x = Mathf.Max(currentScale.x, 0.1f);
-                    currentScale.y = Mathf.Max(currentScale.y, 0.1f);
-                    currentScale.z = Mathf.Max(currentScale.z, 0.1f);
+                    if (transform.root.TryGetComponent(out BotPart botPart))
+                    {
+                        var data = _configProvider.PartsConfig.GetPart(botPart.PartType);
+                        currentScale.x = Mathf.Clamp(currentScale.x, data.minScale.x, data.maxScale.x);
+                        currentScale.y = Mathf.Clamp(currentScale.y, data.minScale.y, data.maxScale.y);
+                        currentScale.z = Mathf.Clamp(currentScale.z, data.minScale.z, data.maxScale.z);    
+                    }
 
                     transform.root.localScale = currentScale;
                 }

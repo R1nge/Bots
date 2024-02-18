@@ -159,6 +159,7 @@ MonoBehaviour:
   forbid: {fileID: 2100000, guid: f0c520a5137db174c8708ab6f2bc4708, type: 2}
   meshRenderer: {fileID: 7359159476245722191}
   maxHealth: 50
+  partType: 3
   speed: 100
   rotatableTransform: {fileID: 2120705523821849164}
 --- !u!1 &1942344713806319439

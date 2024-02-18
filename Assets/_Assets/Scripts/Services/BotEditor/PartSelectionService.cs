@@ -140,11 +140,11 @@ namespace _Assets.Scripts.Services.BotEditor
                 _editMode = EditMode.Rotate;
                 UpdateEditMode();
             }
-            // else if (Input.GetKeyDown(KeyCode.Alpha3))
-            // {
-            //     _editMode = EditMode.Scale;
-            //     UpdateEditMode();
-            // }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                _editMode = EditMode.Scale;
+                UpdateEditMode();
+            }
         }
 
         private void UpdateEditMode()

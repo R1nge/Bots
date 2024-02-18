@@ -26,6 +26,7 @@ namespace _Assets.Scripts.Configs
         [Serializable]
         public struct EditorPartsData
         {
+            public Vector3 minScale, maxScale;
             public PartData partData;
             public BotPart prefab;
             public string name;

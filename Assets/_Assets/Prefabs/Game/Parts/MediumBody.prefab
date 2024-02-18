@@ -155,3 +155,4 @@ MonoBehaviour:
   forbid: {fileID: 2100000, guid: f0c520a5137db174c8708ab6f2bc4708, type: 2}
   meshRenderer: {fileID: 3901326182718399990}
   maxHealth: 150
+  partType: 1
