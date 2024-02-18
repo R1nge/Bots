@@ -29,7 +29,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
 
         private void Redo()
         {
-            //_botEditorCommandBufferService.Execute();
+            _botEditorCommandBufferService.Redo();
         }
 
         private void Undo()
@@ -47,6 +47,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             botEditorView.SaveButton.interactable = _botDataService.CanSave();
             botEditorView.TestButton.interactable = _botDataService.CanSave();
             botEditorView.UndoButton.interactable = _botEditorCommandBufferService.HasCommands();
+            botEditorView.RedoButton.interactable = _botEditorCommandBufferService.HasUndoCommands();
         }
 
         private void Sell()
