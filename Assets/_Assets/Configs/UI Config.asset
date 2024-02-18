@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameUI: {fileID: 0}
   editorUI: {fileID: 5496913177439249036, guid: 6f98cd1d57960a4468aa10c2d4e64958, type: 3}
+  testFieldUI: {fileID: 3070684544836987839, guid: 88c4093eb4895f04599ce49fcd393400, type: 3}

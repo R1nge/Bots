@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 977201593}
   - component: {fileID: 977201594}
   m_Layer: 0
-  m_Name: BotEditorInstaller
+  m_Name: BotTestFieldInstaller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

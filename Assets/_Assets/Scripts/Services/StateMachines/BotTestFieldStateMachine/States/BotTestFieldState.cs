@@ -22,7 +22,7 @@ namespace _Assets.Scripts.Services.StateMachines.BotTestFieldStateMachine.States
         {
             var camera = _cameraFactory.SpawnCamera(CameraFactory.CameraType.Editor);
             _botTestFieldSpawner.Spawn();
-            //_uiStateMachine.SwitchState(UIStateType.Game);
+            _uiStateMachine.SwitchState(UIStateType.TestField);
         }
 
         public void Exit()

@@ -4,6 +4,7 @@
     {
         None = 0,
         Game = 1,
-        BotEditor = 2
+        BotEditor = 2,
+        TestField = 3
     }
 }

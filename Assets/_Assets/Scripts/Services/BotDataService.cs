@@ -32,7 +32,7 @@ namespace _Assets.Scripts.Services
             {
                 if (!pair.Key.CanBePlaced)
                 {
-                    Debug.LogError($"Bot won't be saved; Part {pair.Value.partType} is not placed correcly");
+                    Debug.LogError($"Bot won't be saved; Part {pair.Value.partType} is not placed correctly");
                     canSave = false;
                 }
             }

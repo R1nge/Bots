@@ -20,5 +20,10 @@ namespace _Assets.Scripts.Services.UIs.StateMachine
         {
             return new UIEditorState(_uiFactory);
         }
+
+        public IUIState CreateTestFieldState(UIStateMachine uiStateMachine)
+        {
+            return new UITestFieldState(_uiFactory);
+        }
     }
 }
