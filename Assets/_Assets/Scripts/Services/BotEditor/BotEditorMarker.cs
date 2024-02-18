@@ -1,5 +1,6 @@
 ﻿using _Assets.Scripts.Configs;
 using _Assets.Scripts.Gameplay.Parts;
+using _Assets.Scripts.Services.BotEditor.Commands;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -13,14 +14,21 @@ namespace _Assets.Scripts.Services.BotEditor
         private EditMode _editMode;
         private bool _isDragging;
         private Vector3 _mouseStartPosition;
+        private Vector3 _startPosition;
+        private Vector3 _startScale;
+        private Quaternion _startRotation;
         private Camera _camera;
         [Inject] private ConfigProvider _configProvider;
+        [Inject] private BotEditorCommandBufferService _botEditorCommandBufferService;
 
         public void StartDragging(Camera camera, Vector3 mousePosition)
         {
             _camera = camera;
             _isDragging = true;
             _mouseStartPosition = mousePosition;
+            _startPosition = transform.root.position;
+            _startRotation = transform.root.rotation;
+            _startScale = transform.root.localScale;
         }
 
         public void UpdateEditMode(EditMode editMode) => _editMode = editMode;
@@ -41,7 +49,26 @@ namespace _Assets.Scripts.Services.BotEditor
             }
         }
 
-        public void StopDragging() => _isDragging = false;
+        public void StopDragging()
+        {
+            if (!_isDragging)
+                return;
+            
+            _isDragging = false;
+
+            switch (_editMode)
+            {
+                case EditMode.Move:
+                    _botEditorCommandBufferService.Execute(new MoveCommand(transform.root, _startPosition, transform.root.position));
+                    break;
+                case EditMode.Rotate:
+                    _botEditorCommandBufferService.Execute(new RotateCommand(transform.root, _startRotation, transform.root.rotation));
+                    break;
+                case EditMode.Scale:
+                    _botEditorCommandBufferService.Execute(new ScaleCommand(transform.root, _startScale, transform.root.localScale));
+                    break;
+            }
+        }
 
         private void Move()
         {
@@ -143,7 +170,7 @@ namespace _Assets.Scripts.Services.BotEditor
                         var data = _configProvider.PartsConfig.GetPart(botPart.PartType);
                         currentScale.x = Mathf.Clamp(currentScale.x, data.minScale.x, data.maxScale.x);
                         currentScale.y = Mathf.Clamp(currentScale.y, data.minScale.y, data.maxScale.y);
-                        currentScale.z = Mathf.Clamp(currentScale.z, data.minScale.z, data.maxScale.z);    
+                        currentScale.z = Mathf.Clamp(currentScale.z, data.minScale.z, data.maxScale.z);
                     }
 
                     transform.root.localScale = currentScale;

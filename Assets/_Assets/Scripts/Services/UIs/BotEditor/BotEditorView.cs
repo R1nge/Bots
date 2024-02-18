@@ -12,13 +12,18 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
         [SerializeField] private Button sellButton;
         [SerializeField] private Button saveButton, loadButton;
         [SerializeField] private Button testButton;
+        [SerializeField] private Button undo, redo;
         public Button SaveButton => saveButton;
         public Button TestButton => testButton;
+        public Button UndoButton => undo;
         public event Action<PartData.PartType> OnBuy;
         public event Action OnSell;
         public event Action OnSave;
         public event Action OnLoad;
         public event Action OnTest;
+
+        public event Action OnUndo;
+        public event Action OnRedo;
 
         private void Start()
         {
@@ -28,7 +33,14 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             saveButton.onClick.AddListener(Save);
             loadButton.onClick.AddListener(Load);
             testButton.onClick.AddListener(Test);
+
+            undo.onClick.AddListener(Undo);
+            redo.onClick.AddListener(Redo);
         }
+
+        private void Undo() => OnUndo?.Invoke();
+
+        private void Redo() => OnRedo?.Invoke();
 
         private void BuySmallWheel() => OnBuy?.Invoke(PartData.PartType.SmallWheel);
         private void BuyMediumBody() => OnBuy?.Invoke(PartData.PartType.MediumBody);
@@ -45,6 +57,9 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             saveButton.onClick.RemoveAllListeners();
             loadButton.onClick.RemoveAllListeners();
             testButton.onClick.RemoveAllListeners();
+            
+            undo.onClick.RemoveAllListeners();
+            redo.onClick.RemoveAllListeners();
         }
     }
 }

@@ -12,6 +12,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
         [Inject] private BotDataService _botDataService;
         [Inject] private BotEditorService _botEditorService;
         [Inject] private PartSelectionService _partSelectionService;
+        [Inject] private BotEditorCommandBufferService _botEditorCommandBufferService;
         private BotPart _botPart;
 
         private void Start()
@@ -21,6 +22,19 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             botEditorView.OnSave += Save;
             botEditorView.OnLoad += Load;
             botEditorView.OnTest += Test;
+
+            botEditorView.OnRedo += Redo;
+            botEditorView.OnUndo += Undo;
+        }
+
+        private void Redo()
+        {
+            //_botEditorCommandBufferService.Execute();
+        }
+
+        private void Undo()
+        {
+            _botEditorCommandBufferService.Undo();
         }
 
         private void Test()
@@ -32,6 +46,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
         {
             botEditorView.SaveButton.interactable = _botDataService.CanSave();
             botEditorView.TestButton.interactable = _botDataService.CanSave();
+            botEditorView.UndoButton.interactable = _botEditorCommandBufferService.HasCommands();
         }
 
         private void Sell()
@@ -59,6 +74,9 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             botEditorView.OnSave -= Save;
             botEditorView.OnLoad -= Load;
             botEditorView.OnTest -= Test;
+
+            botEditorView.OnRedo -= Redo;
+            botEditorView.OnUndo -= Undo;
         }
     }
 }

@@ -20,10 +20,7 @@ namespace _Assets.Scripts.Services.BotEditor
             _botDataService = botDataService;
         }
         
-        public void Init()
-        {
-            _botDataService.OnSaveLoaded += OnSaveLoaded;
-        }
+        public void Init() => _botDataService.OnSaveLoaded += OnSaveLoaded;
 
         private void OnSaveLoaded(IReadOnlyList<PartData> dataList)
         {
@@ -62,9 +59,6 @@ namespace _Assets.Scripts.Services.BotEditor
 
         private void RemovePart(BotPart botPart) => _botDataService.RemovePart(botPart);
 
-        public void Dispose()
-        {
-            _botDataService.OnSaveLoaded -= OnSaveLoaded;
-        }
+        public void Dispose() => _botDataService.OnSaveLoaded -= OnSaveLoaded;
     }
 }
