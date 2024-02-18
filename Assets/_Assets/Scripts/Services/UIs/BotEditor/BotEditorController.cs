@@ -48,6 +48,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             botEditorView.TestButton.interactable = _botDataService.CanSave();
             botEditorView.UndoButton.interactable = _botEditorCommandBufferService.HasCommands();
             botEditorView.RedoButton.interactable = _botEditorCommandBufferService.HasUndoCommands();
+            botEditorView.SellButton.interactable = _partSelectionService.SelectedPart != null;
         }
 
         private void Sell()

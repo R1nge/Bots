@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using _Assets.Scripts.Configs;
 using _Assets.Scripts.Gameplay.Parts;
+using _Assets.Scripts.Services.BotEditor.Commands;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -12,12 +13,14 @@ namespace _Assets.Scripts.Services.BotEditor
         private readonly IObjectResolver _objectResolver;
         private readonly ConfigProvider _configProvider;
         private readonly BotDataService _botDataService;
+        private readonly BotEditorCommandBufferService _botEditorCommandBufferService;
 
-        private BotEditorService(IObjectResolver objectResolver, ConfigProvider configProvider, BotDataService botDataService)
+        private BotEditorService(IObjectResolver objectResolver, ConfigProvider configProvider, BotDataService botDataService, BotEditorCommandBufferService botEditorCommandBufferService)
         {
             _objectResolver = objectResolver;
             _configProvider = configProvider;
             _botDataService = botDataService;
+            _botEditorCommandBufferService = botEditorCommandBufferService;
         }
         
         public void Init() => _botDataService.OnSaveLoaded += OnSaveLoaded;
@@ -32,10 +35,9 @@ namespace _Assets.Scripts.Services.BotEditor
 
         public BotPart SpawnNew(Vector3 position, PartData.PartType type)
         {
-            var part = _configProvider.PartsConfig.GetPart(type);
-            var partInstance = _objectResolver.Instantiate(part.prefab, position, Quaternion.identity);
-            AddPart(partInstance.GetComponent<BotPart>(), part.partData);
-            return partInstance;
+            var command = new BuyCommand(_configProvider, _objectResolver, _botDataService, type, position);
+            _botEditorCommandBufferService.Execute(command);
+            return command.PartInstance;
         }
 
         private void Spawn(PartData partData)
@@ -57,7 +59,10 @@ namespace _Assets.Scripts.Services.BotEditor
 
         private void AddPart(BotPart botPart, PartData partData) => _botDataService.AddPart(botPart, partData);
 
-        private void RemovePart(BotPart botPart) => _botDataService.RemovePart(botPart);
+        private void RemovePart(BotPart botPart)
+        {
+            _botEditorCommandBufferService.Execute(new SellCommand(_configProvider, _objectResolver, _botDataService, botPart.PartType, botPart.transform.position, botPart));
+        }
 
         public void Dispose() => _botDataService.OnSaveLoaded -= OnSaveLoaded;
     }

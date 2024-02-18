@@ -17,6 +17,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
         public Button TestButton => testButton;
         public Button UndoButton => undo;
         public Button RedoButton => redo;
+        public Button SellButton => sellButton;
         public event Action<PartData.PartType> OnBuy;
         public event Action OnSell;
         public event Action OnSave;
