@@ -36,7 +36,9 @@ namespace _Assets.Scripts.Services.BotTestField
             pair = _botDataService.PlacedParts.ElementAt(parentIndex);
             var position = new Vector3(pair.Value.positionX + spawnPoint.position.x, pair.Value.positionY + spawnPoint.position.y, pair.Value.positionZ + pair.Value.positionZ);
             var rotation = Quaternion.Euler(new Vector3(pair.Value.rotationX, pair.Value.rotationY, pair.Value.rotationZ));
+            var scale = new Vector3(pair.Value.scaleX, pair.Value.scaleY, pair.Value.scaleZ);
             var parent = SpawnNew(position, rotation, pair.Value.partType);
+            parent.transform.localScale = scale;
             parent.SetCheckIfCanBePlaced(false);
 
             for (int i = 0; i < _botDataService.PlacedParts.Count; i++)
@@ -49,9 +51,11 @@ namespace _Assets.Scripts.Services.BotTestField
                 pair = _botDataService.PlacedParts.ElementAt(i);
                 position = new Vector3(pair.Value.positionX + spawnPoint.position.x, pair.Value.positionY + spawnPoint.position.y, pair.Value.positionZ + pair.Value.positionZ);
                 rotation = Quaternion.Euler(new Vector3(pair.Value.rotationX, pair.Value.rotationY, pair.Value.rotationZ));
+                scale = new Vector3(pair.Value.scaleX, pair.Value.scaleY, pair.Value.scaleZ);
                 var part = SpawnNew(position, rotation, pair.Value.partType);
                 part.SetCheckIfCanBePlaced(false);
                 part.transform.parent = parent.transform;
+                part.transform.localScale = scale;
             }
             
             parent.GetComponent<BotController>().Init();

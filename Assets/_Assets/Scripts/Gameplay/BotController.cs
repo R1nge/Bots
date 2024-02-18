@@ -26,6 +26,8 @@ namespace _Assets.Scripts.Gameplay
             {
                 AddAttackPart(attackParts[i]);
             }
+
+            gameObject.AddComponent<Rigidbody>();
         }
 
         private void Update()
