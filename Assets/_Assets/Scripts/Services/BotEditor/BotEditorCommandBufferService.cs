@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using _Assets.Scripts.Services.BotEditor.Commands;
-using UnityEngine;
+﻿using _Assets.Scripts.Services.BotEditor.Commands;
 
 namespace _Assets.Scripts.Services.BotEditor
 {
@@ -14,7 +12,6 @@ namespace _Assets.Scripts.Services.BotEditor
 
         public void Execute(IEditorCommand command)
         {
-            Debug.Log("Add");
             command.Execute();
             _commands.PushLast(command);
         }
