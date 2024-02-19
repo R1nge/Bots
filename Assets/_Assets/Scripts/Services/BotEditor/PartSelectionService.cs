@@ -32,6 +32,11 @@ namespace _Assets.Scripts.Services.BotEditor
             SelectPart(part);
         }
 
+        public void Deselect()
+        {
+            DeselectPart();
+        }
+
         private void Update()
         {
             if (!_initialized)

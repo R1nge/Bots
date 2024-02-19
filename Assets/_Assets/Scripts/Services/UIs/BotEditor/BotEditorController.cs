@@ -56,6 +56,7 @@ namespace _Assets.Scripts.Services.UIs.BotEditor
             if (_partSelectionService.SelectedPart != null)
             {
                 _botEditorService.Sell(_partSelectionService.SelectedPart);
+                _partSelectionService.Deselect();
             }
         }
 

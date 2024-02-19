@@ -54,7 +54,6 @@ namespace _Assets.Scripts.Services.BotEditor
         public void Sell(BotPart botPart)
         {
             _botEditorCommandBufferService.Execute(new SellCommand(_configProvider, _objectResolver, _botDataService, botPart.PartType, botPart.transform.position, botPart));
-            //Object.Destroy(botPart.gameObject);
         }
 
         private void AddPart(BotPart botPart, PartData partData) => _botDataService.AddPart(botPart, partData);
