@@ -35,7 +35,7 @@ namespace _Assets.Scripts.Services.BotEditor.Commands
             }
             else
             {
-                _partInstance = _objectResolver.Instantiate(part.prefab, _position, Quaternion.identity);
+                _partInstance = _objectResolver.Instantiate(part.editorPrefab, _position, Quaternion.identity);
             }
 
             _botDataService.AddPart(_partInstance.GetComponent<BotPart>(), part.partData);

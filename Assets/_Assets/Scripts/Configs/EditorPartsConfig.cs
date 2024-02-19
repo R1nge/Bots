@@ -28,7 +28,8 @@ namespace _Assets.Scripts.Configs
         {
             public Vector3 minScale, maxScale;
             public PartData partData;
-            public BotPart prefab;
+            public EditorBotPart editorPrefab;
+            public InGameBotPart inGamePrefab;
             public string name;
             public int cost;
         }

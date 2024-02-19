@@ -46,7 +46,7 @@ namespace _Assets.Scripts.Services.BotEditor
             var position = new Vector3(partData.positionX, partData.positionY, partData.positionZ);
             var scale = new Vector3(partData.scaleX, partData.scaleY, partData.scaleZ);
             var rotation = new Vector3(partData.rotationX, partData.rotationY, partData.rotationZ);
-            var partInstance = _objectResolver.Instantiate(part.prefab, position, Quaternion.Euler(rotation));
+            var partInstance = _objectResolver.Instantiate(part.editorPrefab, position, Quaternion.Euler(rotation));
             partInstance.transform.localScale = scale;
             AddPart(partInstance, partData);
         }

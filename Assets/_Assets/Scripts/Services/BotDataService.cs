@@ -30,7 +30,8 @@ namespace _Assets.Scripts.Services
 
             foreach (var pair in _placedParts)
             {
-                if (!pair.Key.CanBePlaced)
+                var key = (EditorBotPart)pair.Key;
+                if (!key.CanBePlaced)
                 {
                     Debug.LogError($"Bot won't be saved; Part {pair.Value.partType} is not placed correctly");
                     canSave = false;

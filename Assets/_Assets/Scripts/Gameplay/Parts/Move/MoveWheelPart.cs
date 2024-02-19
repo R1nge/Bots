@@ -2,7 +2,7 @@
 
 namespace _Assets.Scripts.Gameplay.Parts.Move
 {
-    public class MoveWheelPart : BotPart, IMovingPart
+    public class MoveWheelPart : InGameBotPart, IMovingPart
     {
         [SerializeField] protected float speed;
         [SerializeField] protected Transform rotatableTransform;

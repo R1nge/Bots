@@ -7,7 +7,9 @@ using UnityEngine;
 
 namespace _Assets.Scripts.Gameplay
 {
-    public class BotController : BotPart, IPlaceablePart
+    //TODO: separate it from the body
+    //TODO: it should be the parent of the whole bot when in game
+    public class BotController : InGameBotPart
     {
         private readonly List<IMovingPart> _moveParts = new();
         private readonly List<IAttackingPart> _attackParts = new();

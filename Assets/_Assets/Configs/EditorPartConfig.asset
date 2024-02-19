@@ -26,7 +26,8 @@ MonoBehaviour:
       scaleY: 1
       scaleZ: 1
       partType: 3
-    prefab: {fileID: 7383593896667432326, guid: fba2b4d8fb86c03479a009c07c6a824a, type: 3}
+    editorPrefab: {fileID: 8113085741153915227, guid: 3194a01f842997c4583acf55b94743ad, type: 3}
+    inGamePrefab: {fileID: 7383593896667432326, guid: fba2b4d8fb86c03479a009c07c6a824a, type: 3}
     name: Small wheel
     cost: 100
   - minScale: {x: 0.5, y: 0.5, z: 0.5}
@@ -42,6 +43,7 @@ MonoBehaviour:
       scaleY: 1
       scaleZ: 1
       partType: 1
-    prefab: {fileID: 1453753198505060290, guid: 71f745672c5a5f945aef4eea85ad9e3c, type: 3}
+    editorPrefab: {fileID: 1299723535638578794, guid: 437284c98c1e5ed419f8b40c6a8afd0f, type: 3}
+    inGamePrefab: {fileID: 1453753198505060290, guid: 71f745672c5a5f945aef4eea85ad9e3c, type: 3}
     name: Medium body
     cost: 100

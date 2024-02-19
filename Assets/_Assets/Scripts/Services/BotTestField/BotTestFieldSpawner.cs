@@ -39,7 +39,6 @@ namespace _Assets.Scripts.Services.BotTestField
             var scale = new Vector3(pair.Value.scaleX, pair.Value.scaleY, pair.Value.scaleZ);
             var parent = SpawnNew(position, rotation, pair.Value.partType);
             parent.transform.localScale = scale;
-            parent.SetCheckIfCanBePlaced(false);
 
             for (int i = 0; i < _botDataService.PlacedParts.Count; i++)
             {
@@ -53,7 +52,6 @@ namespace _Assets.Scripts.Services.BotTestField
                 rotation = Quaternion.Euler(new Vector3(pair.Value.rotationX, pair.Value.rotationY, pair.Value.rotationZ));
                 scale = new Vector3(pair.Value.scaleX, pair.Value.scaleY, pair.Value.scaleZ);
                 var part = SpawnNew(position, rotation, pair.Value.partType);
-                part.SetCheckIfCanBePlaced(false);
                 part.transform.parent = parent.transform;
                 part.transform.localScale = scale;
             }
@@ -64,7 +62,7 @@ namespace _Assets.Scripts.Services.BotTestField
         public BotPart SpawnNew(Vector3 position, Quaternion rotation, PartData.PartType type)
         {
             var part = _configProvider.PartsConfig.GetPart(type);
-            var partInstance = _objectResolver.Instantiate(part.prefab, position, rotation);
+            var partInstance = _objectResolver.Instantiate(part.inGamePrefab, position, rotation);
             return partInstance;
         }
     }
