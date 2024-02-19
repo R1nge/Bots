@@ -11,8 +11,6 @@ namespace _Assets.Scripts.Services.BotEditor
 
         public bool HasCommands() => _commands.Count > 0;
         public bool HasUndoCommands() => _undoCommands.Count > 0;
-        
-        //TODO: limit command count
 
         public void Execute(IEditorCommand command)
         {
