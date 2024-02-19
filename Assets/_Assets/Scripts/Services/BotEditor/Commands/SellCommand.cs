@@ -28,13 +28,21 @@ namespace _Assets.Scripts.Services.BotEditor.Commands
         public void Execute()
         {
             _botDataService.RemovePart(_partInstance);
-            Object.Destroy(_partInstance.gameObject);
+            _partInstance.gameObject.SetActive(false);
         }
 
         public void Undo()
         {
             var part = _configProvider.PartsConfig.GetPart(_partType);
-            _partInstance = _objectResolver.Instantiate(part.prefab, _position, Quaternion.identity);
+            if (_partInstance != null)
+            {
+                _partInstance.gameObject.SetActive(true);
+            }
+            else
+            {
+                _partInstance = _objectResolver.Instantiate(part.prefab, _position, Quaternion.identity);
+            }
+
             _botDataService.AddPart(_partInstance.GetComponent<BotPart>(), part.partData);
         }
     }

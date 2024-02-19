@@ -22,7 +22,7 @@ namespace _Assets.Scripts.Services.BotEditor
             _botDataService = botDataService;
             _botEditorCommandBufferService = botEditorCommandBufferService;
         }
-        
+
         public void Init() => _botDataService.OnSaveLoaded += OnSaveLoaded;
 
         private void OnSaveLoaded(IReadOnlyList<PartData> dataList)
@@ -51,18 +51,13 @@ namespace _Assets.Scripts.Services.BotEditor
             AddPart(partInstance, partData);
         }
 
-        public void Destroy(BotPart botPart)
+        public void Sell(BotPart botPart)
         {
-            RemovePart(botPart);
-            Object.Destroy(botPart.gameObject);
+            _botEditorCommandBufferService.Execute(new SellCommand(_configProvider, _objectResolver, _botDataService, botPart.PartType, botPart.transform.position, botPart));
+            //Object.Destroy(botPart.gameObject);
         }
 
         private void AddPart(BotPart botPart, PartData partData) => _botDataService.AddPart(botPart, partData);
-
-        private void RemovePart(BotPart botPart)
-        {
-            _botEditorCommandBufferService.Execute(new SellCommand(_configProvider, _objectResolver, _botDataService, botPart.PartType, botPart.transform.position, botPart));
-        }
 
         public void Dispose() => _botDataService.OnSaveLoaded -= OnSaveLoaded;
     }
