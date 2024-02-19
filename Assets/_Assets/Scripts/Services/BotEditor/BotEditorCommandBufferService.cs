@@ -9,8 +9,8 @@ namespace _Assets.Scripts.Services.BotEditor
         private readonly CircularBuffer<IEditorCommand> _commands = new(10);
         private readonly CircularBuffer<IEditorCommand> _undoCommands = new(10);
 
-        public bool HasCommands() => _commands.Size > 0;
-        public bool HasUndoCommands() => _undoCommands.Size > 0;
+        public bool HasCommands() => _commands.Count > 0;
+        public bool HasUndoCommands() => _undoCommands.Count > 0;
         
         //TODO: limit command count
 
@@ -18,23 +18,23 @@ namespace _Assets.Scripts.Services.BotEditor
         {
             Debug.Log("Add");
             command.Execute();
-            _commands.PushBack(command);
+            _commands.PushLast(command);
         }
 
         public void Undo()
         {
-            var command = _commands.Back();
-            _commands.PopBack();
+            var command = _commands.Last();
+            _commands.PopLast();
             command.Undo();
-            _undoCommands.PushBack(command);
+            _undoCommands.PushLast(command);
         }
 
         public void Redo()
         {
-            var command = _undoCommands.Back();
-            _undoCommands.PopBack();
+            var command = _undoCommands.Last();
+            _undoCommands.PopLast();
             command.Execute();
-            _commands.PushBack(command);
+            _commands.PushLast(command);
         }
     }
 }

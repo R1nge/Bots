@@ -13,17 +13,17 @@ namespace _Assets.Scripts.Services.BotEditor
         /// <summary>
         /// The _start. Index of the first element in buffer.
         /// </summary>
-        private int _start;
+        private int _first;
 
         /// <summary>
         /// The _end. Index after the last element in the buffer.
         /// </summary>
-        private int _end;
+        private int _last;
 
         /// <summary>
         /// The _size. Buffer size.
         /// </summary>
-        private int _size;
+        private int _count;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularBuffer{T}"/> class.
@@ -69,10 +69,10 @@ namespace _Assets.Scripts.Services.BotEditor
             _buffer = new T[capacity];
 
             Array.Copy(items, _buffer, items.Length);
-            _size = items.Length;
+            _count = items.Length;
 
-            _start = 0;
-            _end = _size == capacity ? 0 : _size;
+            _first = 0;
+            _last = _count == capacity ? 0 : _count;
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace _Assets.Scripts.Services.BotEditor
         {
             get
             {
-                return Size == Capacity;
+                return Count == Capacity;
             }
         }
 
@@ -102,33 +102,33 @@ namespace _Assets.Scripts.Services.BotEditor
         {
             get
             {
-                return Size == 0;
+                return Count == 0;
             }
         }
 
         /// <summary>
         /// Current buffer size (the number of elements that the buffer has).
         /// </summary>
-        public int Size { get { return _size; } }
+        public int Count { get { return _count; } }
 
         /// <summary>
         /// Element at the front of the buffer - this[0].
         /// </summary>
         /// <returns>The value of the element of type T at the front of the buffer.</returns>
-        public T Front()
+        public T First()
         {
             ThrowIfEmpty();
-            return _buffer[_start];
+            return _buffer[_first];
         }
 
         /// <summary>
         /// Element at the back of the buffer - this[Size - 1].
         /// </summary>
         /// <returns>The value of the element of type T at the back of the buffer.</returns>
-        public T Back()
+        public T Last()
         {
             ThrowIfEmpty();
-            return _buffer[(_end != 0 ? _end : Capacity) - 1];
+            return _buffer[(_last != 0 ? _last : Capacity) - 1];
         }
 
         /// <summary>
@@ -146,9 +146,9 @@ namespace _Assets.Scripts.Services.BotEditor
                 {
                     throw new IndexOutOfRangeException(string.Format("Cannot access index {0}. Buffer is empty", index));
                 }
-                if (index >= _size)
+                if (index >= _count)
                 {
-                    throw new IndexOutOfRangeException(string.Format("Cannot access index {0}. Buffer size is {1}", index, _size));
+                    throw new IndexOutOfRangeException(string.Format("Cannot access index {0}. Buffer size is {1}", index, _count));
                 }
                 int actualIndex = InternalIndex(index);
                 return _buffer[actualIndex];
@@ -159,9 +159,9 @@ namespace _Assets.Scripts.Services.BotEditor
                 {
                     throw new IndexOutOfRangeException(string.Format("Cannot access index {0}. Buffer is empty", index));
                 }
-                if (index >= _size)
+                if (index >= _count)
                 {
-                    throw new IndexOutOfRangeException(string.Format("Cannot access index {0}. Buffer size is {1}", index, _size));
+                    throw new IndexOutOfRangeException(string.Format("Cannot access index {0}. Buffer size is {1}", index, _count));
                 }
                 int actualIndex = InternalIndex(index);
                 _buffer[actualIndex] = value;
@@ -176,19 +176,19 @@ namespace _Assets.Scripts.Services.BotEditor
         /// popped to allow for this new element to fit.
         /// </summary>
         /// <param name="item">Item to push to the back of the buffer</param>
-        public void PushBack(T item)
+        public void PushLast(T item)
         {
             if (IsFull)
             {
-                _buffer[_end] = item;
-                Increment(ref _end);
-                _start = _end;
+                _buffer[_last] = item;
+                Increment(ref _last);
+                _first = _last;
             }
             else
             {
-                _buffer[_end] = item;
-                Increment(ref _end);
-                ++_size;
+                _buffer[_last] = item;
+                Increment(ref _last);
+                ++_count;
             }
         }
 
@@ -200,19 +200,19 @@ namespace _Assets.Scripts.Services.BotEditor
         /// popped to allow for this new element to fit.
         /// </summary>
         /// <param name="item">Item to push to the front of the buffer</param>
-        public void PushFront(T item)
+        public void PushFirst(T item)
         {
             if (IsFull)
             {
-                Decrement(ref _start);
-                _end = _start;
-                _buffer[_start] = item;
+                Decrement(ref _first);
+                _last = _first;
+                _buffer[_first] = item;
             }
             else
             {
-                Decrement(ref _start);
-                _buffer[_start] = item;
-                ++_size;
+                Decrement(ref _first);
+                _buffer[_first] = item;
+                ++_count;
             }
         }
 
@@ -220,24 +220,24 @@ namespace _Assets.Scripts.Services.BotEditor
         /// Removes the element at the back of the buffer. Decreasing the 
         /// Buffer size by 1.
         /// </summary>
-        public void PopBack()
+        public void PopLast()
         {
             ThrowIfEmpty("Cannot take elements from an empty buffer.");
-            Decrement(ref _end);
-            _buffer[_end] = default(T);
-            --_size;
+            Decrement(ref _last);
+            _buffer[_last] = default(T);
+            --_count;
         }
 
         /// <summary>
         /// Removes the element at the front of the buffer. Decreasing the 
         /// Buffer size by 1.
         /// </summary>
-        public void PopFront()
+        public void PopFirst()
         {
             ThrowIfEmpty("Cannot take elements from an empty buffer.");
-            _buffer[_start] = default(T);
-            Increment(ref _start);
-            --_size;
+            _buffer[_first] = default(T);
+            Increment(ref _first);
+            --_count;
         }
 
         /// <summary>
@@ -247,9 +247,9 @@ namespace _Assets.Scripts.Services.BotEditor
         public void Clear()
         {
             // to clear we just reset everything.
-            _start = 0;
-            _end = 0;
-            _size = 0;
+            _first = 0;
+            _last = 0;
+            _count = 0;
             Array.Clear(_buffer, 0, _buffer.Length);
         }
 
@@ -261,7 +261,7 @@ namespace _Assets.Scripts.Services.BotEditor
         /// <returns>A new array with a copy of the buffer contents.</returns>
         public T[] ToArray()
         {
-            T[] newArray = new T[Size];
+            T[] newArray = new T[Count];
             int newArrayOffset = 0;
             var segments = ToArraySegments();
             foreach (ArraySegment<T> segment in segments)
@@ -359,7 +359,7 @@ namespace _Assets.Scripts.Services.BotEditor
         /// </param>
         private int InternalIndex(int index)
         {
-            return _start + (index < (Capacity - _start) ? index : index - Capacity);
+            return _first + (index < (Capacity - _first) ? index : index - Capacity);
         }
 
         // doing ArrayOne and ArrayTwo methods returning ArraySegment<T> as seen here: 
@@ -377,13 +377,13 @@ namespace _Assets.Scripts.Services.BotEditor
             {
                 return new ArraySegment<T>(new T[0]);
             }
-            else if (_start < _end)
+            else if (_first < _last)
             {
-                return new ArraySegment<T>(_buffer, _start, _end - _start);
+                return new ArraySegment<T>(_buffer, _first, _last - _first);
             }
             else
             {
-                return new ArraySegment<T>(_buffer, _start, _buffer.Length - _start);
+                return new ArraySegment<T>(_buffer, _first, _buffer.Length - _first);
             }
         }
 
@@ -393,13 +393,13 @@ namespace _Assets.Scripts.Services.BotEditor
             {
                 return new ArraySegment<T>(new T[0]);
             }
-            else if (_start < _end)
+            else if (_first < _last)
             {
-                return new ArraySegment<T>(_buffer, _end, 0);
+                return new ArraySegment<T>(_buffer, _last, 0);
             }
             else
             {
-                return new ArraySegment<T>(_buffer, 0, _end);
+                return new ArraySegment<T>(_buffer, 0, _last);
             }
         }
         #endregion
