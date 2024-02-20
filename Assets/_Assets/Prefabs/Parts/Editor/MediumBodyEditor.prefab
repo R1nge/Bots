@@ -82,7 +82,8 @@ MonoBehaviour:
   rayDistance: 0.1
   rayTransforms: []
   forbid: {fileID: 2100000, guid: f0c520a5137db174c8708ab6f2bc4708, type: 2}
-  meshRenderer: {fileID: 6207726856492032989}
+  meshRenderers:
+  - {fileID: 6207726856492032989}
 --- !u!23 &6207726856492032989 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 3901326182718399990, guid: 71f745672c5a5f945aef4eea85ad9e3c, type: 3}

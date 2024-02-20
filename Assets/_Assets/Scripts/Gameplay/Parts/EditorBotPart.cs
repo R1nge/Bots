@@ -7,12 +7,20 @@ namespace _Assets.Scripts.Gameplay.Parts
         [SerializeField] private float rayDistance;
         [SerializeField] private Transform[] rayTransforms;
         [SerializeField] private Material forbid;
-        [SerializeField] private MeshRenderer meshRenderer;
-        private Material _currentMaterial;
+        [SerializeField] private MeshRenderer[] meshRenderers;
+        private Material[] _currentMaterials;
         private bool _canBePlaced = true;
         public bool CanBePlaced => _canBePlaced;
 
-        public override void Awake() => _currentMaterial = meshRenderer.material;
+        public override void Awake()
+        {
+            _currentMaterials = new Material[meshRenderers.Length];
+
+            for (int i = 0; i < meshRenderers.Length; i++)
+            {
+                _currentMaterials[i] = meshRenderers[i].material;
+            }
+        }
 
         private void Update()
         {
@@ -35,7 +43,10 @@ namespace _Assets.Scripts.Gameplay.Parts
 
             _canBePlaced = canPlace;
 
-            meshRenderer.material = _canBePlaced ? _currentMaterial : forbid;
+            for (int i = 0; i < meshRenderers.Length; i++)
+            {
+                meshRenderers[i].material = _canBePlaced ? _currentMaterials[i] : forbid;
+            }
         }
     }
 }
